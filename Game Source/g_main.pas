@@ -165,7 +165,7 @@ begin
 
   s := 'SOUND_GAME_RADIO';
 
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // 
   ls1 :=          CheatEng[I_GAME_CHEAT_GODMODE];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_GODMODE]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -175,7 +175,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GodMode := not gPlayer2.GodMode;
     goto Cheated;
   end;
-  // RAMBO ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+  // RAMBO
   ls1 :=          CheatEng[I_GAME_CHEAT_WEAPONS];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_WEAPONS]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -185,7 +185,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.AllRulez(False);
     goto Cheated;
   end;
-  // TANK ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+  // TANK
   ls1 :=          CheatEng[I_GAME_CHEAT_HEALTH];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_HEALTH]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -195,7 +195,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.AllRulez(True);
     goto Cheated;
   end;
-  // IDDQD ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // IDDQD
   ls1 :=          CheatEng[I_GAME_CHEAT_DEATH];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_DEATH]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -206,7 +206,7 @@ begin
     s := 'SOUND_MONSTER_HAHA';
     goto Cheated;
   end;
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+  // 
   ls1 :=          CheatEng[I_GAME_CHEAT_DOORS];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_DOORS]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -215,7 +215,7 @@ begin
     g_Triggers_OpenAll();
     goto Cheated;
   end;
-  // GOODBYE ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // GOODBYE
   ls1 :=          CheatEng[I_GAME_CHEAT_NEXTMAP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NEXTMAP]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -231,7 +231,7 @@ begin
         end;
     goto Cheated;
   end;
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // 
   ls1 :=          CheatEng[I_GAME_CHEAT_CHANGEMAP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_CHANGEMAP]);
   s2 := Copy(charbuff, 15, 2);
@@ -249,7 +249,7 @@ begin
     end;
     goto Cheated;
   end;
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // 
   ls1 :=          CheatEng[I_GAME_CHEAT_FLY];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_FLY]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -258,7 +258,7 @@ begin
     gFly := not gFly;
     goto Cheated;
   end;
-  // BULLFROG ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // BULLFROG
   ls1 :=          CheatEng[I_GAME_CHEAT_JUMPS];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_JUMPS]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -267,7 +267,7 @@ begin
     VEL_JUMP := 30-VEL_JUMP;
     goto Cheated;
   end;
-  // FORMULA1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+  // FORMULA1
   ls1 :=          CheatEng[I_GAME_CHEAT_SPEED];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_SPEED]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -276,7 +276,7 @@ begin
     MAX_RUNVEL := 32-MAX_RUNVEL;
     goto Cheated;
   end;
-  // CONDOM ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // CONDOM
   ls1 :=          CheatEng[I_GAME_CHEAT_SUIT];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_SUIT]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -286,7 +286,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_SUIT);
     goto Cheated;
   end;
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // 
   ls1 :=          CheatEng[I_GAME_CHEAT_AIR];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_AIR]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -296,7 +296,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_OXYGEN);
     goto Cheated;
   end;
-  // PURELOVE ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // PURELOVE
   ls1 :=          CheatEng[I_GAME_CHEAT_BERSERK];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_BERSERK]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -306,7 +306,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_MEDKIT_BLACK);
     goto Cheated;
   end;
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+  // 
   ls1 :=          CheatEng[I_GAME_CHEAT_JETPACK];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_JETPACK]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -316,7 +316,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_JETPACK);
     goto Cheated;
   end;
-  // CASPER ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+  // CASPER
   ls1 :=          CheatEng[I_GAME_CHEAT_NOCLIP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NOCLIP]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -326,7 +326,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.SwitchNoClip;
     goto Cheated;
   end;
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // 
   ls1 :=          CheatEng[I_GAME_CHEAT_NOTARGET];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NOTARGET]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -336,7 +336,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.NoTarget := not gPlayer2.NoTarget;
     goto Cheated;
   end;
-  // INFERNO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  // INFERNO
   ls1 :=          CheatEng[I_GAME_CHEAT_NORELOAD];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NORELOAD]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -346,7 +346,6 @@ begin
     if gPlayer2 <> nil then gPlayer2.NoReload := not gPlayer2.NoReload;
     goto Cheated;
   end;
-  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   ls1 :=          CheatEng[I_GAME_CHEAT_AIMLINE];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_AIMLINE]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -355,7 +354,6 @@ begin
     gAimLine := not gAimLine;
     goto Cheated;
   end;
-  // ID2DT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   ls1 :=          CheatEng[I_GAME_CHEAT_AUTOMAP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_AUTOMAP]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -378,12 +376,11 @@ begin
   case K of
     IK_PAUSE: // <Pause/Break>:
       begin
-      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½:
         if (g_ActiveWindow = nil) then
           g_Game_Pause(not gPause);
       end;
 
-    IK_BACKQUOTE: // <`/~/ï¿½/ï¿½>:
+    IK_BACKQUOTE: // <`/~/¨/¸>:
       begin
         g_Console_Switch();
       end;
@@ -396,25 +393,25 @@ begin
           Exit;
         end;
 
-        if gConsoleShow then // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if gConsoleShow then
           g_Console_Switch()
         else
           if g_ActiveWindow <> nil then
-            begin // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            begin
               Msg.Msg := WM_KEYDOWN;
               Msg.WParam := IK_ESCAPE;
               g_ActiveWindow.OnMessage(Msg);
             end
           else
-            if gState <> STATE_FOLD then // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            if gState <> STATE_FOLD then
               if gGameOn
               or (gState = STATE_INTERSINGLE)
               or (gState = STATE_INTERCUSTOM)
-              then // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+              then
                 g_Game_InGameMenu(True)
               else
                 if (gExit = 0) and (gState <> STATE_SLIST) then
-                  begin // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                  begin
                     if gState <> STATE_MENU then
                       if NetMode <> NET_NONE then
                       begin
@@ -431,14 +428,11 @@ begin
 
     IK_F2, IK_F3, IK_F4, IK_F5, IK_F6, IK_F7, IK_F10:
       begin // <F2> .. <F6> ï¿½ <F12>
-      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½:
         if gGameOn and (not gConsoleShow) and (not gChatShow) then
         begin
-        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:
           while g_ActiveWindow <> nil do
             g_GUI_HideWindow(False);
 
-        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:
           if (not g_Game_IsNet) then
             g_Game_Pause(True);
 
@@ -461,14 +455,14 @@ begin
         end;
       end;
 
-    else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+    else
       begin
-        gJustChatted := False; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        if gConsoleShow or gChatShow then // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        gJustChatted := False;
+        if gConsoleShow or gChatShow then
           g_Console_Control(K)
         else
           if g_ActiveWindow <> nil then
-          begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½
+          begin
             Msg.Msg := WM_KEYDOWN;
             Msg.WParam := K;
             g_ActiveWindow.OnMessage(Msg);
@@ -481,7 +475,7 @@ begin
               g_Sound_PlayEx('MENU_OPEN');
             end
             else
-            begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            begin
               for a := 0 to 14 do
                 charbuff[a] := charbuff[a+1];
               charbuff[15] := Chr(K);
@@ -496,14 +490,14 @@ procedure CharPress(C: Char);
 var
   Msg: g_gui.TMessage;
 begin
-  if (not gChatShow) and ((C = '`') or (C = '~') or (C = 'ï¿½') or (C = 'ï¿½')) then
+  if (not gChatShow) and ((C = '`') or (C = '~') or (C = '¸') or (C = '¨')) then
     Exit;
 
-  if gConsoleShow or gChatShow then // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  if gConsoleShow or gChatShow then
     g_Console_Char(C)
   else
     if g_ActiveWindow <> nil then
-    begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½
+    begin
       Msg.Msg := WM_CHAR;
       Msg.WParam := Ord(C);
       g_ActiveWindow.OnMessage(Msg);
