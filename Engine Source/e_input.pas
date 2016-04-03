@@ -24,7 +24,7 @@ const
   
   // these are apparently used in g_gui and g_game and elsewhere
   IK_UNKNOWN = SDLK_UNKNOWN;
-  IK_INVALID = SDLK_UNKNOWN;
+  IK_INVALID = 65535;
   IK_ESCAPE  = SDLK_ESCAPE;
   IK_RETURN  = SDLK_RETURN;
   IK_ENTER   = SDLK_RETURN;
@@ -117,6 +117,7 @@ var
   i, k, c: Integer;
   joy: PSDL_Joystick;
 begin
+  Result := 0;
   k := SDL_NumJoysticks();
   if k = 0 then Exit;
   c := 0;
@@ -140,7 +141,6 @@ begin
       end;
     end;
   end;
-  
   Result := c;
 end;
 
@@ -148,6 +148,7 @@ procedure ReleaseJoysticks();
 var
   i: Integer;
 begin
+  if (Joysticks = nil) or (e_JoysticksAvailable = 0) then Exit;
   for i := Low(Joysticks) to High(Joysticks) do
     with Joysticks[i] do
       SDL_JoystickClose(Handle);
@@ -175,8 +176,7 @@ var
   i, j, d: Word;
   hat: Byte;
 begin
-  if (Joysticks = nil) or (e_JoysticksAvailable = 0) then
-    Exit;
+  if (Joysticks = nil) or (e_JoysticksAvailable = 0) then Exit;
   SDL_JoystickUpdate();
   for j := Low(Joysticks) to High(Joysticks) do
     with Joysticks[j] do
@@ -263,7 +263,7 @@ var
 begin
   for i := Low(KeyBuffer) to High(KeyBuffer) do
     KeyBuffer[i] := False;
-  if Joysticks = nil then Exit;
+  if (Joysticks = nil) or (e_JoysticksAvailable = 0) then
   for i := Low(Joysticks) to High(Joysticks) do
   begin
     for j := Low(Joysticks[i].ButtBuf) to High(Joysticks[i].ButtBuf) do
@@ -291,11 +291,13 @@ var
   joyi, dir: Integer;
 begin
   Result := False;
-  if Key = IK_INVALID then Exit;
-  if (Key > 0) and (Key < KBRD_END) then
+  if (Key = IK_INVALID) or (Key = 0) then Exit;
+  
+  if (Key < KBRD_END) then
   begin // Keyboard buttons/keys
     Result := KeyBuffer[Key];
   end
+  
   else if (Key >= JOYK_BEG) and (Key < JOYK_END) then
   begin // Joystick buttons
     JoyI := (Key - JOYK_BEG) div e_MaxJoyBtns;
@@ -307,6 +309,7 @@ begin
       Result := Joysticks[JoyI].ButtBuf[Key];
     end;
   end
+  
   else if (Key >= JOYA_BEG) and (Key < JOYA_END) then
   begin // Joystick axes
     JoyI := (Key - JOYA_BEG) div (e_MaxJoyAxes*2);
@@ -322,6 +325,7 @@ begin
         Result := Joysticks[JoyI].AxisBuf[Key div 2] > e_JoysticksDeadzone
     end;    
   end
+  
   else if (Key >= JOYH_BEG) and (Key < JOYH_END) then
   begin // Joystick hats 
     JoyI := (Key - JOYH_BEG) div (e_MaxJoyHats*4);
@@ -340,10 +344,13 @@ procedure e_SetKeyState(key: Word; state: Integer);
 var
   JoyI, dir: Integer;
 begin
-  if (Key > 0) and (Key < KBRD_END) then
+  if (Key = IK_INVALID) or (Key = 0) then Exit;
+  
+  if (Key < KBRD_END) then
   begin // Keyboard buttons/keys
     keyBuffer[key] := (state <> 0);
   end
+  
   else if (Key >= JOYK_BEG) and (Key < JOYK_END) then
   begin // Joystick buttons
     JoyI := (Key - JOYK_BEG) div e_MaxJoyBtns;
@@ -355,6 +362,7 @@ begin
       Joysticks[JoyI].ButtBuf[Key] := (state <> 0);
     end;
   end
+  
   else if (Key >= JOYA_BEG) and (Key < JOYA_END) then
   begin // Joystick axes      
     JoyI := (Key - JOYA_BEG) div (e_MaxJoyAxes*2);
@@ -366,6 +374,7 @@ begin
       Joysticks[JoyI].AxisBuf[Key div 2] := state;
     end; 
   end
+  
   else if (Key >= JOYH_BEG) and (Key < JOYH_END) then
   begin // Joystick hats        
     JoyI := (Key - JOYH_BEG) div (e_MaxJoyHats*4);
