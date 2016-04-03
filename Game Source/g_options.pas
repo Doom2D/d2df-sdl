@@ -53,6 +53,7 @@ var
   gWinMaximized: Boolean      = False;
   gVSync: Boolean             = False;
   gTextureFilter: Boolean     = True;
+  gNoSound: Boolean           = False;
   gSoundLevel: Byte           = 75;
   gMusicLevel: Byte           = 65;
   gMaxSimSounds: Byte         = 8;
@@ -227,6 +228,7 @@ begin
   gTextureFilter := config.ReadBool('Video', 'TextureFilter', True);
   fUseMipmaps := config.ReadBool('Video', 'LegacyCompatible', False);
 
+  gNoSound := config.ReadBool('Sound', 'NoSound', False);
   gSoundLevel := Min(config.ReadInt('Sound', 'SoundLevel', 75), 255);
   gMusicLevel := Min(config.ReadInt('Sound', 'MusicLevel', 65), 255);
   gMaxSimSounds := Max(Min(config.ReadInt('Sound', 'MaxSimSounds', 8), 66), 2);
@@ -431,6 +433,7 @@ begin
   config.WriteBool('Video', 'TextureFilter', gTextureFilter);
   config.WriteBool('Video', 'LegacyCompatible', fUseMipmaps);
 
+  config.WriteBool('Sound', 'NoSound', gNoSound);
   config.WriteInt('Sound', 'SoundLevel', gSoundLevel);
   config.WriteInt('Sound', 'MusicLevel', gMusicLevel);
   config.WriteInt('Sound', 'MaxSimSounds', gMaxSimSounds);

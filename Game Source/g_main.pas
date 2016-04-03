@@ -76,8 +76,11 @@ begin
   else
     e_WriteLog('Input: No Joysticks.', MSG_NOTIFY);
 
-  e_WriteLog('Init FMOD', MSG_NOTIFY);
-  e_InitSoundSystem(48000);
+  if not gNoSound then
+  begin
+    e_WriteLog('Init FMOD', MSG_NOTIFY);
+    e_InitSoundSystem(48000);
+  end;
 
   e_WriteLog('Init game', MSG_NOTIFY);
   g_Game_Init();
@@ -93,8 +96,11 @@ begin
   e_WriteLog('Releasing Input', MSG_NOTIFY);
   e_ReleaseInput();
 
-  e_WriteLog('Releasing FMOD', MSG_NOTIFY);
-  e_ReleaseSoundSystem();
+  if not gNoSound then
+  begin
+    e_WriteLog('Releasing FMOD', MSG_NOTIFY);
+    e_ReleaseSoundSystem();
+  end;
 end;
 
 procedure Update();
