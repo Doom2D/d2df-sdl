@@ -52,7 +52,7 @@ type
 const
   NO_SOUND_ID = DWORD(-1);
 
-function e_InitSoundSystem(Freq: Integer): Boolean;
+function e_InitSoundSystem(Freq: Integer; forceNoSound: Boolean): Boolean;
 
 function e_LoadSound(FileName: string; var ID: DWORD; bLoop: Boolean): Boolean;
 function e_LoadSoundMem(pData: Pointer; Length: Integer; var ID: DWORD; bLoop: Boolean): Boolean;
@@ -136,7 +136,7 @@ begin
   end;
 end;
 
-function e_InitSoundSystem(Freq: Integer): Boolean;
+function e_InitSoundSystem(Freq: Integer; forceNoSound: Boolean): Boolean;
 var
   res: FMOD_RESULT;
   ver: Cardinal;
@@ -188,6 +188,7 @@ begin
     if res <> FMOD_OK then
       res := TryInitWithOutput(FMOD_OUTPUTTYPE_OSS, 'OUTPUTTYPE_OSS');
     {$ENDIF}
+    if not forceNoSound then Exit;
     if res <> FMOD_OK then
       res := TryInitWithOutput(FMOD_OUTPUTTYPE_NOSOUND, 'OUTPUTTYPE_NOSOUND');
     if res <> FMOD_OK then

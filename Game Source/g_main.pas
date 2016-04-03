@@ -49,7 +49,7 @@ begin
   e_WriteLog(gLanguage, MSG_NOTIFY);
   g_Language_Set(gLanguage);
 
-  if SDL_Init(SDL_INIT_EVERYTHING) < 0 then
+  if SDL_Init(SDL_INIT_JOYSTICK or SDL_INIT_TIMER or SDL_INIT_AUDIO) < 0 then
     raise Exception.Create('SDL: Init failed: ' + SDL_GetError());
 
   e_WriteLog('Entering SDLMain', MSG_NOTIFY);
@@ -79,7 +79,7 @@ begin
   if not gNoSound then
   begin
     e_WriteLog('Init FMOD', MSG_NOTIFY);
-    e_InitSoundSystem(44100);
+    if not e_InitSoundSystem(44100, False) then e_InitSoundSystem(48000, True);
   end;
 
   e_WriteLog('Init game', MSG_NOTIFY);
