@@ -137,18 +137,14 @@ begin
 end;
 
 function g_Window_SetSize(W, H: Word; FScreen: Boolean): Boolean;
-var
-  NeedResize: Boolean;
 begin
   Result := False;
-  NeedResize := False;
 
   if (gScreenWidth <> W) or (gScreenHeight <> H) then
   begin
     Result := True;
     gScreenWidth := W;
     gScreenHeight := H;
-    NeedResize := True;
   end;
 
   if gFullscreen <> FScreen then
@@ -159,13 +155,14 @@ begin
 
   g_Window_SetDisplay();
 
-  if NeedResize then
+  if Result then
     ChangeWindowSize();
 end;
 
 function EventHandler(ev: TSDL_Event): Boolean;
 var
   key, keychr: Word;
+  joy: Integer;
 begin
   Result := False;
   case ev.type_ of
@@ -279,9 +276,8 @@ begin
     begin
       key := ev.key.keysym.sym;
       keychr := ev.key.keysym.unicode;
-      e_SetKeyState(key, True);
       KeyPress(key);
-      if (keychr > 0) and (key <> IK_BACKSPACE) then
+      if (keychr > 7) and (key <> IK_BACKSPACE) then
       begin
         if (keychr >= 128) then
           keychr := WCharToCP1251(keychr);
@@ -289,8 +285,7 @@ begin
       end;
     end;
 
-    SDL_KEYUP:
-      e_SetKeyState(ev.key.keysym.sym, False);
+    // key presses and joysticks are handled in e_input
   end;
 end;
 
