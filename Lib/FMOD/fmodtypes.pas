@@ -17,7 +17,7 @@ interface
 *)
 
 const
-  FMOD_VERSION = $00042636;
+  FMOD_VERSION = $00041500;
 
 (*
     FMOD types.
