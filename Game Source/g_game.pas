@@ -577,14 +577,14 @@ begin
   if MegaWAD.endpic <> '' then
   begin
     g_ProcessResourceStr(MegaWAD.endpic, @s, nil, nil);
-    if s = '' then s := MapsDir+WAD else s := GameDir+'\wads\';
+    if s = '' then s := MapsDir+WAD else s := GameDir+'/wads/';
     g_Texture_CreateWADEx('TEXTURE_endpic', s+MegaWAD.endpic);
   end;
   MegaWAD.endmus := cfg.ReadStr('megawad', 'endmus', 'Standart.wad:D2DMUS\йнмеж');
   if MegaWAD.endmus <> '' then
   begin
     g_ProcessResourceStr(MegaWAD.endmus, @s, nil, nil);
-    if s = '' then s := MapsDir+WAD else s := GameDir+'\wads\';
+    if s = '' then s := MapsDir+WAD else s := GameDir+'/wads/';
     g_Sound_CreateWADEx('MUSIC_endmus', s+MegaWAD.endmus, True);
   end;
 
@@ -3611,7 +3611,7 @@ end;
 
 procedure g_Game_SaveOptions();
 begin
-  g_Options_Write_Video(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write_Video(GameDir+'/'+CONFIG_FILENAME);
 end;
 
 procedure g_Game_ChangeMap(MapPath: String);
@@ -4284,9 +4284,9 @@ begin
       NetInterpLevel := StrToIntDef(P[1], NetInterpLevel);
 
     g_Console_Add('net_interp = ' + IntToStr(NetInterpLevel));
-    config := TConfig.CreateFile(GameDir+'\'+CONFIG_FILENAME);
+    config := TConfig.CreateFile(GameDir+'/'+CONFIG_FILENAME);
     config.WriteInt('Client', 'InterpolationSteps', NetInterpLevel);
-    config.SaveFile(GameDir+'\'+CONFIG_FILENAME);
+    config.SaveFile(GameDir+'/'+CONFIG_FILENAME);
     config.Free();
   end
   else if cmd = 'net_forceplayerupdate' then
@@ -4299,9 +4299,9 @@ begin
       g_Console_Add('net_forceplayerupdate = 1')
     else
       g_Console_Add('net_forceplayerupdate = 0');
-    config := TConfig.CreateFile(GameDir+'\'+CONFIG_FILENAME);
+    config := TConfig.CreateFile(GameDir+'/'+CONFIG_FILENAME);
     config.WriteBool('Client', 'ForcePlayerUpdate', NetForcePlayerUpdate);
-    config.SaveFile(GameDir+'\'+CONFIG_FILENAME);
+    config.SaveFile(GameDir+'/'+CONFIG_FILENAME);
     config.Free();
   end
   else if cmd = 'net_predictself' then
@@ -4314,9 +4314,9 @@ begin
       g_Console_Add('net_predictself = 1')
     else
       g_Console_Add('net_predictself = 0');
-    config := TConfig.CreateFile(GameDir+'\'+CONFIG_FILENAME);
+    config := TConfig.CreateFile(GameDir+'/'+CONFIG_FILENAME);
     config.WriteBool('Client', 'PredictSelf', NetPredictSelf);
-    config.SaveFile(GameDir+'\'+CONFIG_FILENAME);
+    config.SaveFile(GameDir+'/'+CONFIG_FILENAME);
     config.Free();
   end
   else if cmd = 'sv_name' then
@@ -5712,7 +5712,7 @@ var
 begin
   for a := 1 to High(Word) do
   begin
-    FileName := Format(GameDir+'\Screenshots\Screenshot%.3d.bmp', [a]);
+    FileName := Format(GameDir+'/Screenshots/Screenshot%.3d.bmp', [a]);
     if not FileExists(FileName) then
     begin
       e_MakeScreenshot(FileName, gScreenWidth, gScreenHeight);
@@ -6318,7 +6318,7 @@ begin
   if s <> '' then
   begin
     if Pos(':\', s) = 0 then
-      s := GameDir + '\' + s;
+      s := GameDir + '/' + s;
 
     {$I-}
     AssignFile(F, s);

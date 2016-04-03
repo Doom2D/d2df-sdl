@@ -181,7 +181,7 @@ begin
 
   if g_Game_IsClient then MC_SEND_PlayerSettings;
 
-  g_Options_Write(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write(GameDir+'/'+CONFIG_FILENAME);
 end;
 
 procedure ReadOptions();
@@ -400,7 +400,7 @@ begin
     gcMap := Map;
   end;
 
-  g_Options_Write_Gameplay_Custom(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write_Gameplay_Custom(GameDir+'/'+CONFIG_FILENAME);
 
   g_Game_StartCustom(Map, GameMode, gcTimeLimit, gcGoalLimit,
                      gcMaxLives, Options, gcPlayers);
@@ -466,8 +466,8 @@ begin
     NetUseMaster := TGUISwitch(GetControl('swUseMaster')).ItemIndex = 0;
   end;
 
-  g_Options_Write_Net_Server(GameDir+'\'+CONFIG_FILENAME);
-  g_Options_Write_Gameplay_Net(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write_Net_Server(GameDir+'/'+CONFIG_FILENAME);
+  g_Options_Write_Gameplay_Net(GameDir+'/'+CONFIG_FILENAME);
 
   g_Game_StartServer(Map, GameMode, gnTimeLimit, gnGoalLimit, gnMaxLives,
                      Options, gnPlayers, 0, NetPort);
@@ -484,7 +484,7 @@ begin
     PW := TGUIEdit(GetControl('edPW')).Text;
   end;
 
-  g_Options_Write_Net_Client(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write_Net_Client(GameDir+'/'+CONFIG_FILENAME);
   g_Game_StartClient(NetClientIP, NetClientPort, PW);
 end;
 
@@ -499,7 +499,7 @@ begin
     PW := TGUIEdit(GetControl('edPW')).Text;
   end;
 
-  g_Options_Write_Net_Client(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write_Net_Client(GameDir+'/'+CONFIG_FILENAME);
   g_Game_StartClient(NetClientIP, NetClientPort, PW);
 end;
 
@@ -955,12 +955,12 @@ end;
 
 procedure ProcSingle1Player();
 begin
-  g_Game_StartSingle('megawads\DOOM2D.WAD:\MAP01', False, 1);
+  g_Game_StartSingle('megawads/DOOM2D.WAD:\MAP01', False, 1);
 end;
 
 procedure ProcSingle2Players();
 begin
-  g_Game_StartSingle('megawads\DOOM2D.WAD:\MAP01', True, 2);
+  g_Game_StartSingle('megawads/DOOM2D.WAD:\MAP01', True, 2);
 end;
 
 procedure ProcSelectMapMenu();
@@ -1307,7 +1307,7 @@ begin
     gLanguageChange := True;
     gAskLanguage := False;
 
-    g_Options_Write_Language(GameDir+'\'+CONFIG_FILENAME);
+    g_Options_Write_Language(GameDir+'/'+CONFIG_FILENAME);
 
   // Сохраняем изменения всех настроек:
     ProcApplyOptions();
@@ -1322,7 +1322,7 @@ begin
     gLanguageChange := True;
     gAskLanguage := False;
 
-    g_Options_Write_Language(GameDir+'\'+CONFIG_FILENAME);
+    g_Options_Write_Language(GameDir+'/'+CONFIG_FILENAME);
 
   // Сохраняем изменения всех настроек:
     ProcApplyOptions();
@@ -1607,7 +1607,7 @@ begin
   gLanguageChange := True;
   gAskLanguage := False;
 
-  g_Options_Write_Language(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write_Language(GameDir+'/'+CONFIG_FILENAME);
 end;
 
 procedure ProcSetFirstEnglishLanguage();
@@ -1616,7 +1616,7 @@ begin
   gLanguageChange := True;
   gAskLanguage := False;
 
-  g_Options_Write_Language(GameDir+'\'+CONFIG_FILENAME);
+  g_Options_Write_Language(GameDir+'/'+CONFIG_FILENAME);
 end;
 
 procedure ProcRecallAddress();
@@ -2155,7 +2155,7 @@ begin
       Sort := True;
       Dirs := True;
       FileMask := '*.wad';
-      SetBase(MapsDir+'megawads\');
+      SetBase(MapsDir+'megawads/');
     end;
 
     with AddLabel(_lc[I_MENU_MAP_NAME]) do

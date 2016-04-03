@@ -2000,7 +2000,7 @@ begin
           fn := mapw + Trigger.Data.SoundName;
         end
       else // Звук в отдельном файле
-        fn := GameDir + '\wads\' + Trigger.Data.SoundName;
+        fn := GameDir + '/wads/' + Trigger.Data.SoundName;
 
       if not g_Sound_CreateWADEx(Trigger.Data.SoundName, fn) then
         g_FatalError(Format(_lc[I_GAME_ERROR_TR_SOUND], [fn, Trigger.Data.SoundName]));
@@ -2033,7 +2033,7 @@ begin
           fn := mapw + Trigger.Data.MusicName;
         end
       else // Музыка в файле с картой
-        fn := GameDir+'\wads\'+Trigger.Data.MusicName;
+        fn := GameDir+'/wads/'+Trigger.Data.MusicName;
 
       if not g_Sound_CreateWADEx(Trigger.Data.MusicName, fn, True) then
         g_FatalError(Format(_lc[I_GAME_ERROR_TR_SOUND], [fn, Trigger.Data.MusicName]));

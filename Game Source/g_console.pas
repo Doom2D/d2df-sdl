@@ -169,7 +169,7 @@ begin
       if Length(P) > 1 then
         s := P[1]
       else
-        s := GameDir+'\console.txt';
+        s := GameDir+'/console.txt';
 
       {$I-}
       AssignFile(F, s);
@@ -195,7 +195,7 @@ begin
     // exec <filename>
     if Length(P) > 1 then
     begin
-      s := GameDir+'\'+P[1];
+      s := GameDir+'/'+P[1];
 
       {$I-}
       AssignFile(F, s);

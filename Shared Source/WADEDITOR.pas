@@ -48,7 +48,7 @@ type
                          var Len: Integer): Boolean;
     function GetSectionList(): SArray;
     function GetResourcesList(Section: string): SArray;
-    
+
     property GetLastError: Integer read FLastError;
     property GetLastErrorStr: string read LastErrorString;
     property GetResourcesCount: Word read FHeader.RecordsCount;
@@ -108,7 +108,7 @@ begin
         P := OutBuf;
         Inc(OutBytes, BufInc);
         ReallocMem(OutBuf, OutBytes);
-        strm.next_out := PByteF(Integer(OutBuf) + (Integer(strm.next_out) - Integer(P)));
+        strm.next_out := PByteF(Cardinal(OutBuf) + (Cardinal(strm.next_out) - Cardinal(P)));
         strm.avail_out := BufInc;
       end;
     finally
@@ -120,8 +120,8 @@ begin
     FreeMem(OutBuf);
     raise
   end;
-end;  
-  
+end;
+
 procedure g_ProcessResourceStr(ResourceStr: String; var FileName,
                                SectionName, ResourceName: String);
 var
@@ -135,8 +135,7 @@ begin
   FileName := Copy(ResourceStr, 1, i-1);
 
   for a := i+1 to Length(ResourceStr) do
-    if ResourceStr[a] = '\' then
-      Break;
+    if (ResourceStr[a] = '\') or (ResourceStr[a] = '/') then Break;
 
   ResourceName := Copy(ResourceStr, a+1, Length(ResourceStr)-Abs(a));
   SectionName := Copy(ResourceStr, i+1, Length(ResourceStr)-Length(ResourceName)-Length(FileName)-2);
@@ -161,8 +160,7 @@ begin
     l1 := 0;
 
   for a := i+1 to Length(ResourceStr) do
-    if ResourceStr[a] = '\' then
-      Break;
+    if (ResourceStr[a] = '\') or (ResourceStr[a] = '/') then Break;
 
   if ResourceName <> nil then
     begin
@@ -220,17 +218,20 @@ begin
   a := b;
  end;
 
+ ResCompressed := nil;
+ ResCompressedSize := 0;
  Compress(Data, @Len, ResCompressed, ResCompressedSize);
+ if ResCompressed = nil then Exit;
 
  if FResData = nil then FResData := AllocMem(ResCompressedSize)
-  else ReallocMem(FResData, FDataSize+LongWord(ResCompressedSize));
+  else ReallocMem(FResData, FDataSize+Cardinal(ResCompressedSize));
 
  FDataSize := FDataSize+LongWord(ResCompressedSize);
 
- CopyMemory(Pointer(LongWord(FResData)+FDataSize-LongWord(ResCompressedSize)),
+ CopyMemory(Pointer(Cardinal(FResData)+FDataSize-Cardinal(ResCompressedSize)),
             ResCompressed, ResCompressedSize);
  FreeMemory(ResCompressed);
- 
+
  Inc(FHeader.RecordsCount);
 
  with FResTable[a] do
@@ -240,7 +241,7 @@ begin
   Length := ResCompressedSize;
  end;
 
- FOffset := FOffset+LongWord(ResCompressedSize);
+ FOffset := FOffset+Cardinal(ResCompressedSize);
 
  Result := True;
 end;
@@ -313,8 +314,11 @@ begin
 
  CloseFile(ResourceFile);
 
+ ResCompressed := nil;
+ ResCompressedSize := 0;
  Compress(TempResource, @OriginalSize, ResCompressed, ResCompressedSize);
  FreeMemory(TempResource);
+ if ResCompressed = nil then Exit;
 
  SetLength(FResTable, Length(FResTable)+1);
 
@@ -352,10 +356,10 @@ begin
  end;
 
  if FResData = nil then FResData := AllocMem(ResCompressedSize)
-  else ReallocMem(FResData, FDataSize+LongWord(ResCompressedSize));
+  else ReallocMem(FResData, FDataSize+Cardinal(ResCompressedSize));
 
  FDataSize := FDataSize+LongWord(ResCompressedSize);
- CopyMemory(Pointer(LongWord(FResData)+FDataSize-LongWord(ResCompressedSize)),
+ CopyMemory(Pointer(Cardinal(FResData)+FDataSize-Cardinal(ResCompressedSize)),
             ResCompressed, ResCompressedSize);
  FreeMemory(ResCompressed);
 
@@ -368,7 +372,7 @@ begin
   Length := ResCompressedSize;
  end;
 
- FOffset := FOffset+LongWord(ResCompressedSize);
+ FOffset := FOffset+Cardinal(ResCompressedSize);
 
  Result := True;
 end;
@@ -620,7 +624,7 @@ begin
  if Length(Section) > 16 then Exit;
 
  CurrentSection := '';
- 
+
  for a := 0 to High(FResTable) do
  begin
   if FResTable[a].Length = 0 then
@@ -688,7 +692,7 @@ begin
   FLastError := DFWAD_ERROR_WADNOTFOUND;
   Exit;
  end;
- 
+
  FFileName := FileName;
 
  AssignFile(WADFile, FFileName);
@@ -799,7 +803,7 @@ begin
  b := 0;
  c := 0;
  CurrentSection := '';
- 
+
  for a := 0 to High(FResTable) do
  begin
   if FResTable[a].Length = 0 then

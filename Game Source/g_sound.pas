@@ -23,7 +23,7 @@ type
     function PlayVolumeAt(X, Y: Integer; Volume: Single): Boolean;
     function SetByName(SN: String): Boolean;
     function SetCoords(X, Y: Integer; Volume: Single): Boolean;
-    
+
     property Loop: Boolean read FLoop write FLoop;
     property Name: String read FName;
   end;
@@ -43,7 +43,7 @@ type
     function SetByName(SN: String): Boolean;
     function IsPaused(): Boolean;
     procedure Pause(Enable: Boolean);
-    
+
     property Name: String read FName;
     property SpecPause: Boolean read FSpecPause write SetSpecPause;
     property NoMusic: Boolean read FNoMusic;
@@ -240,7 +240,7 @@ var
   Pan, Vol: Single;
 begin
   Result := False;
-  
+
   if SoundArray = nil then
     Exit;
 

@@ -2864,7 +2864,7 @@ begin
   for i:=0 to ResList.Count-1 do
   begin
     Result.ExternalResources[i].Name := ResList.Strings[i];
-    Result.ExternalResources[i].md5 := MD5File(GameDir+'\wads\'+ResList.Strings[i]);
+    Result.ExternalResources[i].md5 := MD5File(GameDir+'/wads/'+ResList.Strings[i]);
   end;
 end;
 
@@ -3012,7 +3012,7 @@ begin
   if gExternalResources.IndexOf(FileName) > -1 then
   begin
     resDataMsg.MsgId := NET_MSG_RES_RESPONSE;
-    resDataMsg.FileData := ReadFile(GameDir+'\wads\'+FileName);
+    resDataMsg.FileData := ReadFile(GameDir+'/wads/'+FileName);
     resDataMsg.FileSize := Length(resDataMsg.FileData);
 
     ResDataMsgToBytes(payload, resDataMsg);

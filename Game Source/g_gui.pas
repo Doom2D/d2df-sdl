@@ -2894,7 +2894,7 @@ begin
 
   if (FIndex = -1) or (FItems = nil) or
      (FIndex > High(FItems)) or
-     (FItems[FIndex][1] = '\') then
+     (FItems[FIndex][1] = '/') then
     Exit;
 
   Result := FPath + FItems[FIndex];
@@ -2906,7 +2906,7 @@ var
 begin
   if (FIndex = -1) or (FItems = nil) or
      (FIndex > High(FItems)) or
-     (FItems[FIndex][1] = '\') then
+     (FItems[FIndex][1] = '/') then
     fn := ''
   else
     fn := FItems[FIndex];

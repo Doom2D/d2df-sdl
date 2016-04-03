@@ -17,7 +17,7 @@ procedure FindFiles(const dirName, filename: string; var files: TStringList);
 var
   searchResult: TSearchRec;
 begin
-  if FindFirst(dirName+'\*', faAnyFile, searchResult) = 0 then
+  if FindFirst(dirName+'/*', faAnyFile, searchResult) = 0 then
   begin
     try
       repeat
@@ -25,7 +25,7 @@ begin
         begin
           if searchResult.Name = filename then
           begin
-            files.Add(dirName+'\'+filename);
+            files.Add(dirName+'/'+filename);
             Exit;
           end;
         end
@@ -87,7 +87,7 @@ var
   resFile: TFileStream;
 begin
   try
-    Result := path + DOWNLOAD_DIR + '\' + filename;
+    Result := path + DOWNLOAD_DIR + '/' + filename;
     if not DirectoryExists(path + DOWNLOAD_DIR) then
     begin
       CreateDir(path + DOWNLOAD_DIR);
@@ -121,7 +121,7 @@ begin
 
   for i := 0 to High(mapData.ExternalResources) do
   begin
-    if not CheckFileHash(GameDir + '\wads\',
+    if not CheckFileHash(GameDir + '/wads/',
                          mapData.ExternalResources[i].Name,
                          mapData.ExternalResources[i].md5) then
     begin
@@ -134,7 +134,7 @@ begin
       msgStream := g_Net_Wait_Event(NET_MSG_RES_RESPONSE);
       resData := ResDataFromMsgStream(msgStream);
 
-      resStream := TFileStream.Create(GameDir+'\wads\'+
+      resStream := TFileStream.Create(GameDir+'/wads/'+
                                       mapData.ExternalResources[i].Name,
                                       fmCreate);
       resStream.WriteBuffer(resData.FileData[0], resData.FileSize);

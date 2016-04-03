@@ -114,38 +114,38 @@ begin
   Result := S;
   for i := 1 to Length(Result) do
     case Result[i] of
-      'Й': Result[i] := 'Q';
-      'Ц': Result[i] := 'W';
-      'У': Result[i] := 'E';
-      'К': Result[i] := 'R';
-      'Е': Result[i] := 'T';
-      'Н': Result[i] := 'Y';
-      'Г': Result[i] := 'U';
-      'Ш': Result[i] := 'I';
-      'Щ': Result[i] := 'O';
-      'З': Result[i] := 'P';
-      'Х': Result[i] := Chr(219);
-      'Ъ': Result[i] := Chr(221);
-      'Ф': Result[i] := 'A';
-      'Ы': Result[i] := 'S';
-      'В': Result[i] := 'D';
-      'А': Result[i] := 'F';
-      'П': Result[i] := 'G';
-      'Р': Result[i] := 'H';
-      'О': Result[i] := 'J';
-      'Л': Result[i] := 'K';
-      'Д': Result[i] := 'L';
-      'Ж': Result[i] := Chr(186);
-      'Э': Result[i] := Chr(222);
-      'Я': Result[i] := 'Z';
-      'Ч': Result[i] := 'X';
-      'С': Result[i] := 'C';
-      'М': Result[i] := 'V';
-      'И': Result[i] := 'B';
-      'Т': Result[i] := 'N';
-      'Ь': Result[i] := 'M';
-      'Б': Result[i] := Chr(188);
-      'Ю': Result[i] := Chr(190);
+      'пїЅ': Result[i] := 'Q';
+      'пїЅ': Result[i] := 'W';
+      'пїЅ': Result[i] := 'E';
+      'пїЅ': Result[i] := 'R';
+      'пїЅ': Result[i] := 'T';
+      'пїЅ': Result[i] := 'Y';
+      'пїЅ': Result[i] := 'U';
+      'пїЅ': Result[i] := 'I';
+      'пїЅ': Result[i] := 'O';
+      'пїЅ': Result[i] := 'P';
+      'пїЅ': Result[i] := Chr(219);
+      'пїЅ': Result[i] := Chr(221);
+      'пїЅ': Result[i] := 'A';
+      'пїЅ': Result[i] := 'S';
+      'пїЅ': Result[i] := 'D';
+      'пїЅ': Result[i] := 'F';
+      'пїЅ': Result[i] := 'G';
+      'пїЅ': Result[i] := 'H';
+      'пїЅ': Result[i] := 'J';
+      'пїЅ': Result[i] := 'K';
+      'пїЅ': Result[i] := 'L';
+      'пїЅ': Result[i] := Chr(186);
+      'пїЅ': Result[i] := Chr(222);
+      'пїЅ': Result[i] := 'Z';
+      'пїЅ': Result[i] := 'X';
+      'пїЅ': Result[i] := 'C';
+      'пїЅ': Result[i] := 'V';
+      'пїЅ': Result[i] := 'B';
+      'пїЅ': Result[i] := 'N';
+      'пїЅ': Result[i] := 'M';
+      'пїЅ': Result[i] := Chr(188);
+      'пїЅ': Result[i] := Chr(190);
     end;
 end;
 
@@ -165,7 +165,7 @@ begin
 
   s := 'SOUND_GAME_RADIO';
 
-  // ГОРЕЦ включает неуязвимость
+  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_GODMODE];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_GODMODE]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -175,7 +175,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GodMode := not gPlayer2.GodMode;
     goto Cheated;
   end;
-  // RAMBO даёт всё оружие и ключи
+  // RAMBO пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_WEAPONS];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_WEAPONS]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -185,7 +185,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.AllRulez(False);
     goto Cheated;
   end;
-  // TANK поднимает здоровье и броню
+  // TANK пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_HEALTH];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_HEALTH]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -195,7 +195,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.AllRulez(True);
     goto Cheated;
   end;
-  // IDDQD наказывает нечестного игрока
+  // IDDQD пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_DEATH];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_DEATH]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -206,7 +206,7 @@ begin
     s := 'SOUND_MONSTER_HAHA';
     goto Cheated;
   end;
-  // СИМСИМ открывает все двери
+  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_DOORS];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_DOORS]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -215,7 +215,7 @@ begin
     g_Triggers_OpenAll();
     goto Cheated;
   end;
-  // GOODBYE нажимает кнопку выхода на уровне
+  // GOODBYE пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_NEXTMAP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NEXTMAP]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -231,7 +231,7 @@ begin
         end;
     goto Cheated;
   end;
-  // ПОШЕЛНА посылает на нужный уровень
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_CHANGEMAP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_CHANGEMAP]);
   s2 := Copy(charbuff, 15, 2);
@@ -249,7 +249,7 @@ begin
     end;
     goto Cheated;
   end;
-  // БЕЛЫЙОРЕЛ позволяет летать
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_FLY];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_FLY]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -258,7 +258,7 @@ begin
     gFly := not gFly;
     goto Cheated;
   end;
-  // BULLFROG даёт высокие прыжки
+  // BULLFROG пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_JUMPS];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_JUMPS]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -267,7 +267,7 @@ begin
     VEL_JUMP := 30-VEL_JUMP;
     goto Cheated;
   end;
-  // FORMULA1 ускоряет бег
+  // FORMULA1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_SPEED];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_SPEED]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -276,7 +276,7 @@ begin
     MAX_RUNVEL := 32-MAX_RUNVEL;
     goto Cheated;
   end;
-  // CONDOM даёт защитный костюм
+  // CONDOM пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_SUIT];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_SUIT]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -286,7 +286,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_SUIT);
     goto Cheated;
   end;
-  // ЧЕРНОМОР даёт полный запас кислорода
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_AIR];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_AIR]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -296,7 +296,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_OXYGEN);
     goto Cheated;
   end;
-  // PURELOVE даёт силушку богатырскую
+  // PURELOVE пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_BERSERK];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_BERSERK]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -306,7 +306,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_MEDKIT_BLACK);
     goto Cheated;
   end;
-  // ЯСВОБОДЕН даёт реактивный ранец
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_JETPACK];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_JETPACK]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -316,7 +316,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_JETPACK);
     goto Cheated;
   end;
-  // CASPER позволяет ходить сквозь стены
+  // CASPER пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_NOCLIP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NOCLIP]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -326,7 +326,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.SwitchNoClip;
     goto Cheated;
   end;
-  // ШТИРЛИЦ скрывает от глаз монстров
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_NOTARGET];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NOTARGET]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -336,7 +336,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.NoTarget := not gPlayer2.NoTarget;
     goto Cheated;
   end;
-  // INFERNO отменяет необходимость перезарядки оружий
+  // INFERNO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_NORELOAD];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NORELOAD]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -346,7 +346,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.NoReload := not gPlayer2.NoReload;
     goto Cheated;
   end;
-  // СНАЙПЕР включает прицел
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_AIMLINE];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_AIMLINE]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -355,7 +355,7 @@ begin
     gAimLine := not gAimLine;
     goto Cheated;
   end;
-  // ID2DT показывает карту уровня
+  // ID2DT пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   ls1 :=          CheatEng[I_GAME_CHEAT_AUTOMAP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_AUTOMAP]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -378,12 +378,12 @@ begin
   case K of
     IK_PAUSE: // <Pause/Break>:
       begin
-      // Переключить паузу:
+      // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
         if (g_ActiveWindow = nil) then
           g_Game_Pause(not gPause);
       end;
 
-    IK_BACKQUOTE: // <`/~/ё/Ё>:
+    IK_BACKQUOTE: // <`/~/пїЅ/пїЅ>:
       begin
         g_Console_Switch();
       end;
@@ -396,25 +396,25 @@ begin
           Exit;
         end;
 
-        if gConsoleShow then // Убрать консоль
+        if gConsoleShow then // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
           g_Console_Switch()
         else
           if g_ActiveWindow <> nil then
-            begin // Выйти из меню
+            begin // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
               Msg.Msg := WM_KEYDOWN;
               Msg.WParam := IK_ESCAPE;
               g_ActiveWindow.OnMessage(Msg);
             end
           else
-            if gState <> STATE_FOLD then // Не выходить в меню при затухании
+            if gState <> STATE_FOLD then // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
               if gGameOn
               or (gState = STATE_INTERSINGLE)
               or (gState = STATE_INTERCUSTOM)
-              then // Войти во внутриигровое меню
+              then // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                 g_Game_InGameMenu(True)
               else
                 if (gExit = 0) and (gState <> STATE_SLIST) then
-                  begin // Войти в главное меню
+                  begin // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                     if gState <> STATE_MENU then
                       if NetMode <> NET_NONE then
                       begin
@@ -430,15 +430,15 @@ begin
       end;
 
     IK_F2, IK_F3, IK_F4, IK_F5, IK_F6, IK_F7, IK_F10:
-      begin // <F2> .. <F6> и <F12>
-      // Только во время игры, в отсутствии консоли и чата:
+      begin // <F2> .. <F6> пїЅ <F12>
+      // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ:
         if gGameOn and (not gConsoleShow) and (not gChatShow) then
         begin
-        // Закрываем все окна:
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ:
           while g_ActiveWindow <> nil do
             g_GUI_HideWindow(False);
 
-        // Пауза при меню только в одиночной игре:
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ:
           if (not g_Game_IsNet) then
             g_Game_Pause(True);
 
@@ -461,14 +461,14 @@ begin
         end;
       end;
 
-    else // Остальные клавиши:
+    else // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
       begin
-        gJustChatted := False; // костылина
-        if gConsoleShow or gChatShow then // Клавиши -> консоли
+        gJustChatted := False; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        if gConsoleShow or gChatShow then // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
           g_Console_Control(K)
         else
           if g_ActiveWindow <> nil then
-          begin // Клавиши -> меню
+          begin // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅ
             Msg.Msg := WM_KEYDOWN;
             Msg.WParam := K;
             g_ActiveWindow.OnMessage(Msg);
@@ -481,7 +481,7 @@ begin
               g_Sound_PlayEx('MENU_OPEN');
             end
             else
-            begin // Клавиши -> набору кода
+            begin // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
               for a := 0 to 14 do
                 charbuff[a] := charbuff[a+1];
               charbuff[15] := Chr(K);
@@ -496,14 +496,14 @@ procedure CharPress(C: Char);
 var
   Msg: g_gui.TMessage;
 begin
-  if (not gChatShow) and ((C = '`') or (C = '~') or (C = 'ё') or (C = 'Ё')) then
+  if (not gChatShow) and ((C = '`') or (C = '~') or (C = 'пїЅ') or (C = 'пїЅ')) then
     Exit;
 
-  if gConsoleShow or gChatShow then // Символы -> консоли
+  if gConsoleShow or gChatShow then // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     g_Console_Char(C)
   else
     if g_ActiveWindow <> nil then
-    begin // Символы -> меню
+    begin // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅ
       Msg.Msg := WM_CHAR;
       Msg.WParam := Ord(C);
       g_ActiveWindow.OnMessage(Msg);

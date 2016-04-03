@@ -4,10 +4,10 @@
 # Building
 
 ## Requirements
-* FPC >= 3.0.0 (with the "sdl" package installed);
+* FPC >= 3.0.0 (with the "sdl", "gl" and "hash" packages installed);
 * FMODEx >= 4.26.xx;
 * libenet >= 1.3.13;
-* SDL >= 1.2.15.
+* SDL >= 1.2.xx.
 
 ## Instructions
 ### Windows
@@ -17,6 +17,6 @@ Don't forget that it will require SDL.dll, FMODEx.dll and ENet.dll to run.
 ### Linux
 Run
 ```
-fpc -MDELPHI -O2 -FE../Bin -FU../Temp Doom2DF.dpr
+fpc -MDELPHI -O1 -FE../Bin -FU../Temp Doom2DF.dpr
 ```
 in the "Game Source" directory.

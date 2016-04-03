@@ -411,7 +411,7 @@ begin
   WAD := TWADEditor_1.Create();
 
   if WADName <> '' then
-    WADName := GameDir+'\wads\'+WADName
+    WADName := GameDir+'/wads/'+WADName
   else
     WADName := Map;
 
@@ -464,7 +464,7 @@ begin
   WAD := TWADEditor_1.Create();
 
   if WADName <> '' then
-    WADName := GameDir+'\wads\'+WADName
+    WADName := GameDir+'/wads/'+WADName
   else
     WADName := Map;
 
@@ -1148,14 +1148,14 @@ begin
     g_ProcessResourceStr(gMapInfo.SkyName, FileName, SectionName, ResName);
   
     if FileName <> '' then
-      FileName := GameDir+'\wads\'+FileName
+      FileName := GameDir+'/wads/'+FileName
     else
       begin
         g_ProcessResourceStr(Res, @FileName2, nil, nil);
         FileName := FileName2;
       end;
 
-    s := FileName+':'+SectionName+'\'+ResName;
+    s := FileName+':'+SectionName+'/'+ResName;
     if g_Texture_CreateWAD(BackID, s) then
       begin
         g_Game_SetupScreenSize();
@@ -1173,14 +1173,14 @@ begin
     g_ProcessResourceStr(gMapInfo.MusicName, FileName, SectionName, ResName);
 
     if FileName <> '' then
-      FileName := GameDir+'\wads\'+FileName
+      FileName := GameDir+'/wads/'+FileName
     else
       begin
         g_ProcessResourceStr(Res, @FileName2, nil, nil);
         FileName := FileName2;
       end;
 
-    s := FileName+':'+SectionName+'\'+ResName;
+    s := FileName+':'+SectionName+'/'+ResName;
     if g_Sound_CreateWADEx(gMapInfo.MusicName, s, True) then
       ok := True
     else
