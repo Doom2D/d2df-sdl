@@ -5,10 +5,10 @@ interface
 uses
   WADEDITOR;
 
-function  SDLMain(): Integer; StdCall;
+function  SDLMain(): Integer;
 function  GetTimer(): Int64;
 procedure ResetTimer();
-function  CreateGLWindow(Title: PChar): Boolean; StdCall;
+function  CreateGLWindow(Title: PChar): Boolean;
 procedure KillGLWindow();
 procedure PushExitEvent();
 function  ProcessMessage(): Boolean;
@@ -18,7 +18,7 @@ procedure SwapBuffers();
 procedure Sleep(ms: LongWord);
 function  GetDisplayModes(dBPP: DWORD; var SelRes: DWORD): SArray;
 function  g_Window_SetDisplay(): Boolean;
-function  g_Window_SetSize(W, H: Word; FScreen: Boolean; Resize: Boolean = False): Boolean;
+function  g_Window_SetSize(W, H: Word; FScreen: Boolean): Boolean;
 
 implementation
 
@@ -135,7 +135,7 @@ begin
   g_Game_ClearLoading();
 end;
 
-function g_Window_SetSize(W, H: Word; FScreen: Boolean; Resize: Boolean = False): Boolean;
+function g_Window_SetSize(W, H: Word; FScreen: Boolean): Boolean;
 var
   NeedResize: Boolean;
 begin
@@ -156,8 +156,7 @@ begin
     gFullscreen := FScreen;
   end;
   
-  if not Resize then
-    g_Window_SetDisplay();
+  g_Window_SetDisplay();
   
   if NeedResize then
     ChangeWindowSize();
@@ -171,7 +170,7 @@ begin
   case ev.type_ of
     SDL_VIDEORESIZE:     
     begin
-      g_Window_SetSize(ev.resize.w, ev.resize.h, gFullscreen, True);   
+      g_Window_SetSize(ev.resize.w, ev.resize.h, gFullscreen);   
       e_Clear();
     end;
     
@@ -304,7 +303,7 @@ begin
   wWindowCreated := False;
 end;
 
-function CreateGLWindow(Title: PChar): Boolean; stdcall;
+function CreateGLWindow(Title: PChar): Boolean;
 var
   flags: LongWord;
 begin
@@ -481,7 +480,7 @@ begin
   SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, v);
 end;
 
-function SDLMain(): Integer; stdcall;
+function SDLMain(): Integer;
 begin
   e_WriteLog('Creating GL window', MSG_NOTIFY);
   if not CreateGLWindow(PChar(Format('Doom 2D: Forever %s', [GAME_VERSION]))) then

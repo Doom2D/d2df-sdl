@@ -49,7 +49,7 @@ begin
   e_WriteLog(gLanguage, MSG_NOTIFY);
   g_Language_Set(gLanguage);
 
-  if SDL_Init(SDL_INIT_JOYSTICK or SDL_INIT_TIMER or SDL_INIT_AUDIO) < 0 then
+  if SDL_Init(SDL_INIT_EVERYTHING) < 0 then
     raise Exception.Create('SDL: Init failed: ' + SDL_GetError());
 
   e_WriteLog('Entering SDLMain', MSG_NOTIFY);
@@ -79,7 +79,7 @@ begin
   if not gNoSound then
   begin
     e_WriteLog('Init FMOD', MSG_NOTIFY);
-    e_InitSoundSystem(48000);
+    e_InitSoundSystem(44100);
   end;
 
   e_WriteLog('Init game', MSG_NOTIFY);
@@ -171,7 +171,7 @@ begin
 
   s := 'SOUND_GAME_RADIO';
 
-  // 
+  //
   ls1 :=          CheatEng[I_GAME_CHEAT_GODMODE];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_GODMODE]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -212,7 +212,7 @@ begin
     s := 'SOUND_MONSTER_HAHA';
     goto Cheated;
   end;
-  // 
+  //
   ls1 :=          CheatEng[I_GAME_CHEAT_DOORS];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_DOORS]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -237,7 +237,7 @@ begin
         end;
     goto Cheated;
   end;
-  // 
+  //
   ls1 :=          CheatEng[I_GAME_CHEAT_CHANGEMAP];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_CHANGEMAP]);
   s2 := Copy(charbuff, 15, 2);
@@ -255,7 +255,7 @@ begin
     end;
     goto Cheated;
   end;
-  // 
+  //
   ls1 :=          CheatEng[I_GAME_CHEAT_FLY];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_FLY]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -292,7 +292,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_SUIT);
     goto Cheated;
   end;
-  // 
+  //
   ls1 :=          CheatEng[I_GAME_CHEAT_AIR];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_AIR]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -312,7 +312,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.GiveItem(ITEM_MEDKIT_BLACK);
     goto Cheated;
   end;
-  // 
+  //
   ls1 :=          CheatEng[I_GAME_CHEAT_JETPACK];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_JETPACK]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or
@@ -332,7 +332,7 @@ begin
     if gPlayer2 <> nil then gPlayer2.SwitchNoClip;
     goto Cheated;
   end;
-  // 
+  //
   ls1 :=          CheatEng[I_GAME_CHEAT_NOTARGET];
   ls2 := Translit(CheatRus[I_GAME_CHEAT_NOTARGET]);
   if (Copy(charbuff, 17 - Length(ls1), Length(ls1)) = ls1) or

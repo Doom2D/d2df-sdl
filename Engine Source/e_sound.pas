@@ -88,7 +88,7 @@ var
 
 
 function Channel_Callback(channel: FMOD_CHANNEL; callbacktype: FMOD_CHANNEL_CALLBACKTYPE;
-                          commanddata1: Pointer; commanddata2: Pointer): FMOD_RESULT; stdcall;
+                          commanddata1: Pointer; commanddata2: Pointer): FMOD_RESULT; {$IFDEF WIN32} stdcall; {$ELSE} cdecl; {$ENDIF}
 var
   res: FMOD_RESULT;
   sound: FMOD_SOUND;
@@ -115,6 +115,25 @@ begin
   end;
 
   Result := res;
+end;
+
+function TryInitWithOutput(Output: FMOD_OUTPUTTYPE; OutputName: String): FMOD_RESULT;
+begin
+  e_WriteLog('Trying with ' + OutputName + '...', MSG_WARNING);
+  Result := FMOD_System_SetOutput(F_System, Output);
+  if Result <> FMOD_OK then
+  begin
+    e_WriteLog('Error setting FMOD output to ' + OutputName + '!', MSG_WARNING);
+    e_WriteLog(FMOD_ErrorString(Result), MSG_WARNING);
+    Exit;
+  end;
+  Result := FMOD_System_Init(F_System, N_CHANNELS, FMOD_INIT_NORMAL, nil);
+  if Result <> FMOD_OK then
+  begin
+    e_WriteLog('Error initializing FMOD system!', MSG_WARNING);
+    e_WriteLog(FMOD_ErrorString(Result), MSG_WARNING);
+    Exit;
+  end;
 end;
 
 function e_InitSoundSystem(Freq: Integer): Boolean;
@@ -145,7 +164,7 @@ begin
 
   if ver < FMOD_VERSION then
   begin
-    e_WriteLog('FMOD DLL version is too old! Need '+IntToStr(FMOD_VERSION), MSG_FATALERROR);
+    e_WriteLog('FMOD library version is too old! Need '+IntToStr(FMOD_VERSION), MSG_FATALERROR);
     Exit;
   end;
 
@@ -163,19 +182,17 @@ begin
   begin
     e_WriteLog('Error initializing FMOD system!', MSG_WARNING);
     e_WriteLog(FMOD_ErrorString(res), MSG_WARNING);
-    e_WriteLog('Trying with OUTPUTTYPE_NOSOUND...', MSG_WARNING);
-    res := FMOD_System_SetOutput(F_System, FMOD_OUTPUTTYPE_NOSOUND);
+
+    {$IFDEF LINUX}
+    res := TryInitWithOutput(FMOD_OUTPUTTYPE_ALSA, 'OUTPUTTYPE_ALSA');
+    if res <> FMOD_OK then
+      res := TryInitWithOutput(FMOD_OUTPUTTYPE_OSS, 'OUTPUTTYPE_OSS');
+    {$ENDIF}
+    if res <> FMOD_OK then
+      res := TryInitWithOutput(FMOD_OUTPUTTYPE_NOSOUND, 'OUTPUTTYPE_NOSOUND');
     if res <> FMOD_OK then
     begin
-      e_WriteLog('Error setting FMOD output to NOSOUND!', MSG_FATALERROR);
-      e_WriteLog(FMOD_ErrorString(res), MSG_FATALERROR);
-      Exit;
-    end;
-    res := FMOD_System_Init(F_System, N_CHANNELS, FMOD_INIT_NORMAL, nil);
-    if res <> FMOD_OK then
-    begin
-      e_WriteLog('Error initializing FMOD system!', MSG_FATALERROR);
-      e_WriteLog(FMOD_ErrorString(res), MSG_FATALERROR);
+      e_WriteLog('FMOD: Giving up, can''t init any output.', MSG_FATALERROR);
       Exit;
     end;
   end;
