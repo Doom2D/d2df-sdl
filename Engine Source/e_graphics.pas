@@ -71,13 +71,6 @@ function e_GetTextureSize2(ID: DWORD): TRectWH;
 procedure e_DeleteTexture(ID: DWORD);
 procedure e_RemoveAllTextures();
 
-// SimpleFont
-function e_SimpleFontCreate(FontName: PChar; Size: Byte; Weight: Word): DWORD;
-procedure e_SimpleFontFree(Font: DWORD);
-procedure e_SimpleFontPrint(X, Y: SmallInt; Text: PChar; Font: Integer; Red, Green, Blue: Byte);
-procedure e_SimpleFontPrintEx(X, Y: SmallInt; Text: PChar; Font: DWORD; Red, Green, Blue,
-                      sRed, sGreen, sBlue, sWidth: Byte);
-
 // CharFont
 function e_CharFont_Create(sp: ShortInt=0): DWORD;
 procedure e_CharFont_AddChar(FontID: DWORD; Texture: Integer; c: Char; w: Byte);
@@ -93,7 +86,7 @@ procedure e_CharFont_Remove(FontID: DWORD);
 procedure e_CharFont_RemoveAll();
 
 // TextureFont
-procedure e_TextureFontBuild(Texture: DWORD; var FontID: DWORD; XCount, YCount: Word;
+procedure e_TextureFontBuild(Tex: DWORD; var FontID: DWORD; XCount, YCount: Word;
                              Space: ShortInt=0);
 procedure e_TextureFontKill(FontID: DWORD);
 procedure e_TextureFontPrint(X, Y: GLint; Text: string; FontID: DWORD);
@@ -137,10 +130,12 @@ type
   end;
 
   TTextureFont = record
-   TextureID:  DWORD;
-   Base:       Uint32;
-   CharWidth:  Byte;
-   CharHeight: Byte;
+   Texture:     DWORD;
+   TextureID:   DWORD;
+   Base:        Uint32;
+   CharWidth:   Byte;
+   CharHeight:  Byte;
+   XC, YC, SPC: Word;
   end;
 
   TCharFont = record
@@ -159,12 +154,12 @@ type
     OldID:  DWORD;
     Pixels: Pointer;
   end;
-
+  
 var
   e_Textures: array of TTexture = nil;
   e_TextureFonts: array of TTextureFont = nil;
   e_CharFonts: array of TCharFont;
-  e_GLContext: array of TSavedTexture;
+  e_SavedTextures: array of TSavedTexture;
 
 //------------------------------------------------------------------
 // Инициализирует OpenGL
@@ -896,66 +891,6 @@ begin
   glPopMatrix();
 end;
 
-procedure e_SaveGLContext();
-var
-  PxLen: Cardinal;
-  i: Integer;
-begin
-  e_WriteLog('Backing up GL context...', MSG_NOTIFY);
-
-  glPushAttrib(GL_ALL_ATTRIB_BITS);
-  glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
-
-  SetLength(e_GLContext, Length(e_Textures));
-
-  for i := Low(e_Textures) to High(e_Textures) do
-  begin
-    e_GLContext[i].Pixels := nil;
-    if e_Textures[i].Width > 0 then
-    begin
-      // GL_RGBA, GL_UNSIGNED_BYTE
-      with e_GLContext[i] do
-      begin
-        // e_WriteLog('  Storing texture ' + IntToStr(i) + '...', MSG_NOTIFY);
-        PxLen := 3;
-        if e_Textures[i].Fmt = GL_RGBA then Inc(PxLen);
-        Pixels := GetMem(PxLen * e_Textures[i].Width * e_Textures[i].Height);
-        glBindTexture(GL_TEXTURE_2D, e_Textures[i].ID);
-        glGetTexImage(GL_TEXTURE_2D, 0, e_Textures[i].Fmt, GL_UNSIGNED_BYTE, Pixels);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        OldID := e_Textures[i].ID;
-        TexId := i;
-      end;
-    end;
-  end;
-end;
-
-procedure e_RestoreGLContext();
-var
-  GLID: GLuint;
-  i: Integer;
-begin
-  e_WriteLog('Restoring GL context...', MSG_NOTIFY);
-
-  glPopClientAttrib();
-  glPopAttrib();
-
-  for i := Low(e_GLContext) to High(e_GLContext) do
-  begin
-    if e_GLContext[i].Pixels <> nil then
-      with e_GLContext[i] do
-      begin
-        // e_WriteLog('  Regenerating texture ' + IntToStr(TexID) + '...', MSG_NOTIFY);
-        GLID := CreateTexture(e_Textures[TexID].Width, e_Textures[TexID].Height,
-                              e_Textures[TexID].Fmt, Pixels);
-        e_Textures[TexID].ID := GLID;
-        FreeMem(Pixels);
-      end;
-  end;
-
-  SetLength(e_GLContext, 0);
-end;
-
 procedure e_MakeScreenshot(FileName: String; Width, Height: Word);
 begin
 end;
@@ -1084,54 +1019,6 @@ begin
  end;
 
  SDL_SetGammaRamp(@ramp[0], @ramp[256], @ramp[512]);
-end;
-
-function e_SimpleFontCreate(FontName: PChar; Size: Byte; Weight: Word{; DC: HDC}): DWORD;
-//var
- //font: HFONT;
-begin
- {Result := glGenLists(96);                           // Generate enough display lists to hold
- font := CreateFont(-Size,                             // height of font
-                    0,                             // average character width
-                    0,                             // angle of escapement
-		                0,                             // base-line orientation angle
-		                Weight,                       // font weight
-                    0,			            // italic
-		                0,                             // underline
-		                0,			            // strikeout
-		                RUSSIAN_CHARSET,               // character set
-		                OUT_TT_PRECIS,	            // output precision
-                    CLIP_DEFAULT_PRECIS,           // clipping precision
-                    ANTIALIASED_QUALITY,           // output quality
-		                FF_DONTCARE or DEFAULT_PITCH,  // pitch and family
-		                FontName);                      // font
- SelectObject(DC, font);                   // Sets the new font as the current font in the device context
- wglUseFontBitmaps(DC, 32, 224, Result); // Creates a set display lists containing the bitmap fonts}
-end;
-
-procedure e_SimpleFontFree(Font: DWORD);
-begin
- glDeleteLists(Font, 223);             // Delete the font display lists, returning used memory
-end;
-
-procedure e_SimpleFontPrint(X, Y: SmallInt; Text: PChar; Font: Integer; Red, Green, Blue: Byte);
-begin
- glPopAttrib(); // Rendering bug workaround
-
- glColor3ub(Red, Green, Blue);
- glDisable(GL_TEXTURE_2D);     // Turn off textures, don't want our text textured
- glRasterPos2i(X, Y);                                // Position the Text
- glPushAttrib(GL_LIST_BIT);                          // Save's the current base list
-  glListBase(DWORD(Font-32));                              // Set the base list to our character list
-  glCallLists(Length(Text), GL_UNSIGNED_BYTE, Text);  // Display the text
- glPopAttrib();                                     // Restore the old base list
-end;
-
-procedure e_SimpleFontPrintEx(X, Y: SmallInt; Text: PChar; Font: DWORD; Red, Green, Blue,
-                      sRed, sGreen, sBlue, sWidth: Byte);
-begin
- e_SimpleFontPrint(X, Y, Text, Font, Red, Green, Blue);
- e_SimpleFontPrint(X+sWidth, Y+sWidth, Text, Font, sRed, sGreen, sBlue);
 end;
 
 function e_CharFont_Create(sp: ShortInt=0): DWORD;
@@ -1450,7 +1337,7 @@ begin
  e_CharFonts := nil;
 end;
 
-procedure e_TextureFontBuild(Texture: DWORD; var FontID: DWORD; XCount, YCount: Word;
+procedure e_TextureFontBuild(Tex: DWORD; var FontID: DWORD; XCount, YCount: Word;
                              Space: ShortInt=0);
 var
   loop1 : GLuint;
@@ -1478,12 +1365,16 @@ begin
  with e_TextureFonts[id] do
  begin
   Base := glGenLists(XCount*YCount);
-  TextureID := e_Textures[Texture].ID;
-  CharWidth := (e_Textures[Texture].Width div XCount)+Space;
-  CharHeight := e_Textures[Texture].Height div YCount;
+  TextureID := e_Textures[Tex].ID;
+  CharWidth := (e_Textures[Tex].Width div XCount)+Space;
+  CharHeight := e_Textures[Tex].Height div YCount;
+  XC := XCount;
+  YC := YCount;
+  Texture := Tex;
+  SPC := Space;
  end;
 
- glBindTexture(GL_TEXTURE_2D, e_Textures[Texture].ID);
+ glBindTexture(GL_TEXTURE_2D, e_Textures[Tex].ID);
  for loop1 := 0 to XCount*YCount-1 do
  begin
   cx := (loop1 mod XCount)/XCount;
@@ -1492,22 +1383,64 @@ begin
 	glNewList(e_TextureFonts[id].Base+loop1, GL_COMPILE);
 	 glBegin(GL_QUADS);
     glTexCoord2f(cx, 1.0-cy-1/YCount);
-    glVertex2d(0, e_Textures[Texture].Height div YCount);
+    glVertex2d(0, e_Textures[Tex].Height div YCount);
 
 	  glTexCoord2f(cx+1/XCount, 1.0-cy-1/YCount);
-    glVertex2i(e_Textures[Texture].Width div XCount, e_Textures[Texture].Height div YCount);
+    glVertex2i(e_Textures[Tex].Width div XCount, e_Textures[Tex].Height div YCount);
 
 		glTexCoord2f(cx+1/XCount, 1.0-cy);
-    glVertex2i(e_Textures[Texture].Width div XCount, 0);
+    glVertex2i(e_Textures[Tex].Width div XCount, 0);
 
 		glTexCoord2f(cx, 1.0-cy);
     glVertex2i(0, 0);
    glEnd();
-	 glTranslated((e_Textures[Texture].Width div XCount)+Space, 0, 0);
+	 glTranslated((e_Textures[Tex].Width div XCount)+Space, 0, 0);
 	glEndList();
  end;
 
  FontID := id;
+end;
+
+procedure e_TextureFontBuildInPlace(id: DWORD);
+var
+  loop1 : GLuint;
+  cx, cy : real;
+  XCount, YCount, Space: Integer;
+  i, Tex: DWORD;
+begin
+ with e_TextureFonts[id] do
+ begin
+  Base := glGenLists(XC*YC);
+  TextureID := e_Textures[Texture].ID;
+  XCount := XC;
+  YCount := YC;
+  Space := SPC;
+  Tex := Texture;
+ end;
+
+ glBindTexture(GL_TEXTURE_2D, e_Textures[Tex].ID);
+ for loop1 := 0 to XCount*YCount-1 do
+ begin
+  cx := (loop1 mod XCount)/XCount;
+	cy := (loop1 div YCount)/YCount;
+
+	glNewList(e_TextureFonts[id].Base+loop1, GL_COMPILE);
+	 glBegin(GL_QUADS);
+    glTexCoord2f(cx, 1.0-cy-1/YCount);
+    glVertex2d(0, e_Textures[Tex].Height div YCount);
+
+	  glTexCoord2f(cx+1/XCount, 1.0-cy-1/YCount);
+    glVertex2i(e_Textures[Tex].Width div XCount, e_Textures[Tex].Height div YCount);
+
+		glTexCoord2f(cx+1/XCount, 1.0-cy);
+    glVertex2i(e_Textures[Tex].Width div XCount, 0);
+
+		glTexCoord2f(cx, 1.0-cy);
+    glVertex2i(0, 0);
+   glEnd();
+	 glTranslated((e_Textures[Tex].Width div XCount)+Space, 0, 0);
+	glEndList();
+ end;
 end;
 
 procedure e_TextureFontKill(FontID: DWORD);
@@ -1708,6 +1641,94 @@ begin
 
  e_TextureFonts := nil;
 end;
+
+procedure e_SaveGLContext();
+var
+  PxLen: Cardinal;
+  i: Integer;
+begin
+  e_WriteLog('Backing up GL context:', MSG_NOTIFY);
+
+  glPushAttrib(GL_ALL_ATTRIB_BITS);
+  glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+
+  if e_Textures <> nil then
+  begin
+    e_WriteLog('  Backing up textures...', MSG_NOTIFY);
+    SetLength(e_SavedTextures, Length(e_Textures));
+    for i := Low(e_Textures) to High(e_Textures) do
+    begin
+      e_SavedTextures[i].Pixels := nil;
+      if e_Textures[i].Width > 0 then
+      begin
+        with e_SavedTextures[i] do
+        begin
+          PxLen := 3;
+          if e_Textures[i].Fmt = GL_RGBA then Inc(PxLen);
+          Pixels := GetMem(PxLen * e_Textures[i].Width * e_Textures[i].Height);
+          glBindTexture(GL_TEXTURE_2D, e_Textures[i].ID);
+          glGetTexImage(GL_TEXTURE_2D, 0, e_Textures[i].Fmt, GL_UNSIGNED_BYTE, Pixels);
+          glBindTexture(GL_TEXTURE_2D, 0);
+          OldID := e_Textures[i].ID;
+          TexId := i;
+        end;
+      end;
+    end;
+  end;
+  
+  if e_TextureFonts <> nil then
+  begin
+    e_WriteLog('  Releasing texturefonts...', MSG_NOTIFY);
+    for i := 0 to High(e_TextureFonts) do
+      if e_TextureFonts[i].Base <> 0 then
+      begin
+       glDeleteLists(e_TextureFonts[i].Base, 256);
+       e_TextureFonts[i].Base := 0;
+      end;
+  end;
+end;
+
+procedure e_RestoreGLContext();
+var
+  GLID: GLuint;
+  i: Integer;
+begin
+  e_WriteLog('Restoring GL context:', MSG_NOTIFY);
+
+  glPopClientAttrib();
+  glPopAttrib();
+
+  if e_SavedTextures <> nil then
+  begin
+    e_WriteLog('  Regenerating textures...', MSG_NOTIFY);
+    for i := Low(e_SavedTextures) to High(e_SavedTextures) do
+    begin
+      if e_SavedTextures[i].Pixels <> nil then
+        with e_SavedTextures[i] do
+        begin
+          GLID := CreateTexture(e_Textures[TexID].Width, e_Textures[TexID].Height,
+                                e_Textures[TexID].Fmt, Pixels);
+          e_Textures[TexID].ID := GLID;
+          FreeMem(Pixels);
+        end;
+    end;
+  end;
+
+  if e_TextureFonts <> nil then
+  begin
+    e_WriteLog('  Regenerating texturefonts...', MSG_NOTIFY);
+    for i := Low(e_TextureFonts) to High(e_TextureFonts) do
+      with e_TextureFonts[i] do
+      begin
+        TextureID := e_Textures[Texture].ID;
+        Base := 0;
+        e_TextureFontBuildInPlace(i);
+      end;
+  end;
+  
+  SetLength(e_SavedTextures, 0);
+end;
+
 
 function _RGB(Red, Green, Blue: Byte): TRGB;
 begin

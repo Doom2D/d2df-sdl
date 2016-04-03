@@ -153,10 +153,11 @@ begin
     gFullscreen := FScreen;
   end;
 
-  g_Window_SetDisplay();
-
   if Result then
+  begin
+    g_Window_SetDisplay();
     ChangeWindowSize();
+  end;
 end;
 
 function EventHandler(ev: TSDL_Event): Boolean;
