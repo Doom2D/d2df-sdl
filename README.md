@@ -17,6 +17,6 @@ Don't forget that it will require SDL.dll, FMODEx.dll and ENet.dll to run.
 ### Linux
 Run
 ```
-fpc -MDELPHI -O1 -FE../Bin -FU../Temp Doom2DF.dpr
+fpc -MDELPHI -O2 -FE../Bin -FU../Temp Doom2DF.dpr
 ```
 in the "Game Source" directory.
