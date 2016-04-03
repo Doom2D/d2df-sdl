@@ -12,7 +12,7 @@ type
   TPoint2i = record
     X, Y: Integer;
   end;
-  
+
   TPoint = MAPDEF.TPoint; // TODO: create an utiltypes.pas or something
                           //       for other types like rect as well
 
@@ -153,7 +153,7 @@ type
    Height: ShortInt;
    Live: Boolean;
   end;
-  
+
   TSavedTexture = record
     TexID:  DWORD;
     OldID:  DWORD;
@@ -214,7 +214,7 @@ begin
   glLoadMatrixd(@mat[0]);
 
   glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();   
+  glLoadIdentity();
 end;
 
 //------------------------------------------------------------------
@@ -435,9 +435,9 @@ end;
 
 procedure e_Draw(ID: DWORD; X, Y: Integer; Alpha: Byte; AlphaChannel: Boolean;
                  Blending: Boolean; Mirror: TMirrorType = M_NONE);
-begin  
+begin
   glColor4ub(e_Colors.R, e_Colors.G, e_Colors.B, 255);
-     
+
   if (Alpha > 0) or (AlphaChannel) or (Blending) then
     glEnable(GL_BLEND)
   else
@@ -573,7 +573,7 @@ procedure e_DrawFill(ID: DWORD; X, Y: Integer; XCount, YCount: Word; Alpha: Inte
                      AlphaChannel: Boolean; Blending: Boolean);
 var
   X2, Y2: Integer;
-  
+
 begin
   glColor4ub(e_Colors.R, e_Colors.G, e_Colors.B, 255);
 
@@ -602,7 +602,7 @@ begin
 
   X2 := X + e_Textures[ID].Width * XCount;
   Y2 := Y + e_Textures[ID].Height * YCount;
- 
+
   glBegin(GL_QUADS);
     glTexCoord2i(0,      YCount); glVertex2i(X,  Y);
     glTexCoord2i(XCount, YCount); glVertex2i(X2, Y);
@@ -615,14 +615,14 @@ end;
 
 procedure e_DrawAdv(ID: DWORD; X, Y: Integer; Alpha: Byte; AlphaChannel: Boolean;
                     Blending: Boolean; Angle: Single; RC: PPoint; Mirror: TMirrorType = M_NONE);
-begin  
+begin
   glColor4ub(e_Colors.R, e_Colors.G, e_Colors.B, 255);
 
   if (Alpha > 0) or (AlphaChannel) or (Blending) then
     glEnable(GL_BLEND)
   else
     glDisable(GL_BLEND);
-      
+
   if (AlphaChannel) or (Alpha > 0) then
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -681,7 +681,7 @@ begin
   glDisable(GL_TEXTURE_2D);
   glColor3ub(Red, Green, Blue);
   glPointSize(Size);
-  
+
   if (Size = 2) or (Size = 4) then
     X := X + 1;
 
@@ -901,9 +901,11 @@ var
   PxLen: Cardinal;
   i: Integer;
 begin
+  e_WriteLog('Backing up GL context...', MSG_NOTIFY);
+
   glPushAttrib(GL_ALL_ATTRIB_BITS);
   glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
-  
+
   SetLength(e_GLContext, Length(e_Textures));
 
   for i := Low(e_Textures) to High(e_Textures) do
@@ -914,7 +916,7 @@ begin
       // GL_RGBA, GL_UNSIGNED_BYTE
       with e_GLContext[i] do
       begin
-        e_WriteLog('Storing texture ' + IntToStr(i) + '...', MSG_NOTIFY);
+        // e_WriteLog('  Storing texture ' + IntToStr(i) + '...', MSG_NOTIFY);
         PxLen := 3;
         if e_Textures[i].Fmt = GL_RGBA then Inc(PxLen);
         Pixels := GetMem(PxLen * e_Textures[i].Width * e_Textures[i].Height);
@@ -933,23 +935,25 @@ var
   GLID: GLuint;
   i: Integer;
 begin
+  e_WriteLog('Restoring GL context...', MSG_NOTIFY);
+
   glPopClientAttrib();
   glPopAttrib();
-  
+
   for i := Low(e_GLContext) to High(e_GLContext) do
   begin
     if e_GLContext[i].Pixels <> nil then
       with e_GLContext[i] do
       begin
-        e_WriteLog('Regenerating texture ' + IntToStr(TexID) + '...', MSG_NOTIFY);
+        // e_WriteLog('  Regenerating texture ' + IntToStr(TexID) + '...', MSG_NOTIFY);
         GLID := CreateTexture(e_Textures[TexID].Width, e_Textures[TexID].Height,
                               e_Textures[TexID].Fmt, Pixels);
         e_Textures[TexID].ID := GLID;
         FreeMem(Pixels);
       end;
   end;
-  
-  SetLength(e_GLContext, 0); 
+
+  SetLength(e_GLContext, 0);
 end;
 
 procedure e_MakeScreenshot(FileName: String; Width, Height: Word);
@@ -1441,7 +1445,7 @@ begin
  if e_CharFonts = nil then Exit;
 
  for a := 0 to High(e_CharFonts) do
-  e_CharFont_Remove(a); 
+  e_CharFont_Remove(a);
 
  e_CharFonts := nil;
 end;
@@ -1478,7 +1482,7 @@ begin
   CharWidth := (e_Textures[Texture].Width div XCount)+Space;
   CharHeight := e_Textures[Texture].Height div YCount;
  end;
- 
+
  glBindTexture(GL_TEXTURE_2D, e_Textures[Texture].ID);
  for loop1 := 0 to XCount*YCount-1 do
  begin
@@ -1735,4 +1739,3 @@ begin
 end;
 
 end.
-
