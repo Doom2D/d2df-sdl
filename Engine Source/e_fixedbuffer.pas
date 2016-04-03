@@ -1,12 +1,8 @@
 unit e_fixedbuffer;
 
-// Я не хочу трахаться с классами и созданием по два объекта на каждый буфер,
-// как в BinEditor/WADEDITOR, поэтому будет так. Плюс фиксированный размер
-// быстрее.   --   Primus
-
 interface
 
-uses md5asm;
+uses md5;
 
 const
   BUF_SIZE = 65536;
@@ -172,7 +168,7 @@ var
   I: Integer;
 begin
   for I := 0 to 15 do
-    e_Buffer_Write(B, V.v[I]);
+    e_Buffer_Write(B, V[I]);
 end;
 
 
@@ -229,7 +225,7 @@ var
   I: Integer;
 begin
   for I := 0 to 15 do
-    Result.v[I] := e_Buffer_Read_Byte(B);
+    Result[I] := e_Buffer_Read_Byte(B);
 end;
 
 procedure e_Raw_Read_Generic(P: Pointer; var V; N: Cardinal);
@@ -289,7 +285,7 @@ var
   I: Integer;
 begin
   for I := 0 to 15 do
-    Result.v[I] := e_Raw_Read_Byte(P);
+    Result[I] := e_Raw_Read_Byte(P);
 end;
 
 procedure e_Raw_Seek(I: Cardinal);

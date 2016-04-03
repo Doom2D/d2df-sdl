@@ -4,7 +4,7 @@ interface
 
 uses
   e_graphics, g_basic, MAPSTRUCT, g_textures, Classes,
-  g_phys, WADEDITOR, BinEditor, g_panel, md5asm;
+  g_phys, WADEDITOR, BinEditor, g_panel, md5;
 
 type
   TMapInfo = record

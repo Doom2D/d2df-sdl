@@ -2,7 +2,7 @@ unit g_netmsg;
 
 interface
 
-uses g_net, g_triggers, Classes, SysUtils, md5asm;
+uses g_net, g_triggers, Classes, SysUtils, md5;
 
 const
   NET_MSG_INFO   = 100;

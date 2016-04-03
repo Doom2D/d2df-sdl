@@ -1,7 +1,3 @@
-# Project-specific
-Bin/*
-Temp/*
-
 # Precompiled and Delphi-specific files
 # without *.res
 *.exe

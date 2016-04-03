@@ -2,7 +2,7 @@ unit g_res_downloader;
 
 interface
 
-uses sysutils, Classes, md5asm, g_net, g_netmsg, g_console, g_main, e_log;
+uses sysutils, Classes, md5, g_net, g_netmsg, g_console, g_main, e_log;
 
 function g_Res_SearchSameWAD(const path, filename: string; const resMd5: TMD5Digest): string;
 function g_Res_DownloadWAD(const FileName: string): string;
@@ -44,7 +44,7 @@ var
   gResHash: TMD5Digest;
 begin
   gResHash := MD5File(filename);
-  Result := MD5Compare(gResHash, resMd5);
+  Result := MD5Match(gResHash, resMd5);
 end;
 
 function CheckFileHash(const path, filename: string; const resMd5: TMD5Digest): Boolean;

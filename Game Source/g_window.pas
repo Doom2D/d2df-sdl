@@ -5,7 +5,7 @@ interface
 uses
   WADEDITOR;
 
-function  SDLMain(lpCmdLine: PChar; nCmdShow: Integer): Integer; StdCall;
+function  SDLMain(): Integer; StdCall;
 function  GetTimer(): Int64;
 procedure ResetTimer();
 function  CreateGLWindow(Title: PChar): Boolean; StdCall;
@@ -481,7 +481,7 @@ begin
   SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, v);
 end;
 
-function SDLMain(lpCmdLine: PChar; nCmdShow: Integer): Integer; stdcall;
+function SDLMain(): Integer; stdcall;
 begin
   e_WriteLog('Creating GL window', MSG_NOTIFY);
   if not CreateGLWindow(PChar(Format('Doom 2D: Forever %s', [GAME_VERSION]))) then

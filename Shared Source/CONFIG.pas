@@ -42,7 +42,7 @@ type
 implementation
 
 uses
-  SysUtils, Windows;
+  SysUtils, BinEditor;
 
 { TConfig }
 

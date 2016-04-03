@@ -29,21 +29,21 @@ function FMOD_Memory_GetStats             (var currentalloced: Integer; var maxa
     FMOD System factory functions.  Use this to create an FMOD System Instance.  below you will see FMOD_System_Init/Close to get started.
 *)
 
-function FMOD_System_Create               (var system: FMOD_SYSTEM): FMOD_RESULT; stdcall; 
-function FMOD_System_Release              (system: FMOD_SYSTEM): FMOD_RESULT; stdcall; 
+function FMOD_System_Create               (var system: FMOD_SYSTEM): FMOD_RESULT; stdcall;
+function FMOD_System_Release              (system: FMOD_SYSTEM): FMOD_RESULT; stdcall;
 
 (*
     'System' API
 *)
 
 (*
-     Pre-init functions.                   
+     Pre-init functions.
 *)
 
 function FMOD_System_SetOutput              (system: FMOD_SYSTEM; output: FMOD_OUTPUTTYPE): FMOD_RESULT; stdcall;
 function FMOD_System_GetOutput              (system: FMOD_SYSTEM; var output: FMOD_OUTPUTTYPE): FMOD_RESULT; stdcall;
 function FMOD_System_GetNumDrivers          (system: FMOD_SYSTEM; var numdrivers: Integer): FMOD_RESULT; stdcall;
-function FMOD_System_GetDriverName          (system: FMOD_SYSTEM; id: Integer; name: PChar; namelen: Integer): FMOD_RESULT; stdcall;
+// function FMOD_System_GetDriverName          (system: FMOD_SYSTEM; id: Integer; name: PChar; namelen: Integer): FMOD_RESULT; stdcall;
 function FMOD_System_GetDriverCaps          (system: FMOD_SYSTEM; id: Integer; var caps: Cardinal; var minfrequency, maxfrequency: Integer; var controlpanelspeakermode: FMOD_SPEAKERMODE): FMOD_RESULT; stdcall;
 function FMOD_System_SetDriver              (system: FMOD_SYSTEM; driver: Integer): FMOD_RESULT; stdcall;
 function FMOD_System_GetDriver              (system: FMOD_SYSTEM; var driver: Integer): FMOD_RESULT; stdcall;
@@ -63,7 +63,7 @@ function FMOD_System_SetSpeakerMode         (system: FMOD_SYSTEM; speakermode: F
 function FMOD_System_GetSpeakerMode         (system: FMOD_SYSTEM; var speakermode: FMOD_SPEAKERMODE): FMOD_RESULT; stdcall;
 
 (*
-     Plug-in support                       
+     Plug-in support
 *)
 
 function FMOD_System_SetPluginPath          (system: FMOD_SYSTEM; const path: PChar): FMOD_RESULT; stdcall;
@@ -73,21 +73,21 @@ function FMOD_System_GetPluginInfo          (system: FMOD_SYSTEM; plugintype: FM
 function FMOD_System_UnloadPlugin           (system: FMOD_SYSTEM; plugintype: FMOD_PLUGINTYPE; index: Integer): FMOD_RESULT; stdcall;
 function FMOD_System_SetOutputByPlugin      (system: FMOD_SYSTEM; index: Integer): FMOD_RESULT; stdcall;
 function FMOD_System_GetOutputByPlugin      (system: FMOD_SYSTEM; var index: Integer): FMOD_RESULT; stdcall;
-function FMOD_System_CreateCodec            (system: FMOD_SYSTEM; description:FMOD_CODEC_DESCRIPTION): FMOD_RESULT; stdcall;
+// function FMOD_System_CreateCodec            (system: FMOD_SYSTEM; description:FMOD_CODEC_DESCRIPTION): FMOD_RESULT; stdcall;
 
 (*
-     Init/Close                            
+     Init/Close
 *)
 
 function FMOD_System_Init                   (system: FMOD_SYSTEM; maxchannels: Integer; flags: Cardinal; const extradriverdata: Pointer): FMOD_RESULT; stdcall;
 function FMOD_System_Close                  (system: FMOD_SYSTEM): FMOD_RESULT; stdcall;
 
 (*
-     General post-init system functions    
+     General post-init system functions
 *)
 
 function FMOD_System_Update                 (system: FMOD_SYSTEM): FMOD_RESULT; stdcall;
-function FMOD_System_UpdateFinished         (system: FMOD_SYSTEM): FMOD_RESULT; stdcall;
+// function FMOD_System_UpdateFinished         (system: FMOD_SYSTEM): FMOD_RESULT; stdcall;
 
 function FMOD_System_Set3DSettings          (system: FMOD_SYSTEM; dopplerscale, distancefactor, rolloffscale: Single): FMOD_RESULT; stdcall;
 function FMOD_System_Get3DSettings          (system: FMOD_SYSTEM; var dopplerscale: Single; var distancefactor: Single; var rolloffscale: Single): FMOD_RESULT; stdcall;
@@ -96,8 +96,8 @@ function FMOD_System_Get3DNumListeners      (system: FMOD_SYSTEM; var numlistene
 function FMOD_System_Set3DListenerAttributes(system: FMOD_SYSTEM; listener: Integer; const pos: FMOD_VECTOR; const vel: FMOD_VECTOR; const forward_: FMOD_VECTOR; const up: FMOD_VECTOR): FMOD_RESULT; stdcall;
 function FMOD_System_Get3DListenerAttributes(system: FMOD_SYSTEM; listener: Integer; var pos: FMOD_VECTOR; var vel: FMOD_VECTOR; var forward_: FMOD_VECTOR; var up: FMOD_VECTOR): FMOD_RESULT; stdcall;
 
-function FMOD_System_SetSpeakerPosition     (system: FMOD_SYSTEM; speaker: FMOD_SPEAKER; x:Single; y:Single): FMOD_RESULT; stdcall;
-function FMOD_System_GetSpeakerPosition     (system: FMOD_SYSTEM; speaker: FMOD_SPEAKER; var x:Single; var y:Single): FMOD_RESULT; stdcall;
+// function FMOD_System_SetSpeakerPosition     (system: FMOD_SYSTEM; speaker: FMOD_SPEAKER; x:Single; y:Single): FMOD_RESULT; stdcall;
+// function FMOD_System_GetSpeakerPosition     (system: FMOD_SYSTEM; speaker: FMOD_SPEAKER; var x:Single; var y:Single): FMOD_RESULT; stdcall;
 function FMOD_System_SetStreamBufferSize    (system: FMOD_SYSTEM; filebuffersize: Cardinal; filebuffersizetype: Cardinal): FMOD_RESULT; stdcall;
 function FMOD_System_GetStreamBufferSize    (system: FMOD_SYSTEM; var filebuffersize: Cardinal; filebuffersizetype: Cardinal): FMOD_RESULT; stdcall;
 
@@ -116,14 +116,14 @@ function FMOD_System_GetSpectrum            (system: FMOD_SYSTEM; var spectrumar
 function FMOD_System_GetWaveData            (system: FMOD_SYSTEM; var wavearray: Single; numvalues: Integer; channeloffset: Integer): FMOD_RESULT; stdcall;
 
 (*
-     Sound/DSP/Channel/FX creation and retrieval.       
+     Sound/DSP/Channel/FX creation and retrieval.
 *)
 
 function FMOD_System_CreateSound            (system: FMOD_SYSTEM; const name_or_data: PChar; mode: Cardinal; exinfo: PFMOD_CREATESOUNDEXINFO; var sound: FMOD_SOUND): FMOD_RESULT; stdcall;
 function FMOD_System_CreateStream           (system: FMOD_SYSTEM; const name_or_data: PChar; mode: Cardinal; exinfo: PFMOD_CREATESOUNDEXINFO; var sound: FMOD_SOUND): FMOD_RESULT; stdcall;
 function FMOD_System_CreateDSP              (system: FMOD_SYSTEM; const description: FMOD_DSP_DESCRIPTION; var dsp: FMOD_DSP): FMOD_RESULT; stdcall;
 function FMOD_System_CreateDSPByType        (system: FMOD_SYSTEM; type_: FMOD_DSP_TYPE; var dsp: FMOD_DSP): FMOD_RESULT; stdcall;
-function FMOD_System_CreateDSPByIndex       (system: FMOD_SYSTEM; index: Integer; var dsp: FMOD_DSP): FMOD_RESULT; stdcall;
+// function FMOD_System_CreateDSPByIndex       (system: FMOD_SYSTEM; index: Integer; var dsp: FMOD_DSP): FMOD_RESULT; stdcall;
 function FMOD_System_CreateChannelGroup     (system: FMOD_SYSTEM; const name: PChar; var channelgroup: FMOD_CHANNELGROUP): FMOD_RESULT; stdcall;
 
 function FMOD_System_PlaySound              (system: FMOD_SYSTEM; channelid: Integer; sound: FMOD_SOUND; paused: FMOD_BOOL; var channel: FMOD_CHANNEL): FMOD_RESULT; stdcall;
@@ -152,10 +152,10 @@ function FMOD_System_UnlockDSP              (system: FMOD_SYSTEM): FMOD_RESULT; 
      Recording API
 *)
 
-function FMOD_System_SetRecordDriver        (system: FMOD_SYSTEM; driver: Integer): FMOD_RESULT; stdcall;
-function FMOD_System_GetRecordDriver        (system: FMOD_SYSTEM; var driver: Integer): FMOD_RESULT; stdcall;
+// function FMOD_System_SetRecordDriver        (system: FMOD_SYSTEM; driver: Integer): FMOD_RESULT; stdcall;
+// function FMOD_System_GetRecordDriver        (system: FMOD_SYSTEM; var driver: Integer): FMOD_RESULT; stdcall;
 function FMOD_System_GetRecordNumDrivers    (system: FMOD_SYSTEM; var numdrivers: Integer): FMOD_RESULT; stdcall;
-function FMOD_System_GetRecordDriverName    (system: FMOD_SYSTEM; id: Integer; name: PChar; namelen: Integer): FMOD_RESULT; stdcall;
+// function FMOD_System_GetRecordDriverName    (system: FMOD_SYSTEM; id: Integer; name: PChar; namelen: Integer): FMOD_RESULT; stdcall;
 function FMOD_System_GetRecordPosition      (system: FMOD_SYSTEM; var position: Cardinal): FMOD_RESULT; stdcall;
 
 function FMOD_System_RecordStart            (system: FMOD_SYSTEM; sound: FMOD_SOUND; loop: FMOD_BOOL): FMOD_RESULT; stdcall;
@@ -181,7 +181,7 @@ function FMOD_System_SetNetworkTimeout      (system: FMOD_SYSTEM; timeout: Integ
 function FMOD_System_GetNetworkTimeout      (system: FMOD_SYSTEM; var timeout: Integer): FMOD_RESULT; stdcall;
 
 (*
-     Userdata set/get.                       
+     Userdata set/get.
 *)
 
 function FMOD_System_SetUserData            (system: FMOD_SYSTEM; userdata: Pointer): FMOD_RESULT; stdcall;
@@ -195,7 +195,7 @@ function FMOD_Sound_Release                 (sound: FMOD_SOUND): FMOD_RESULT; st
 function FMOD_Sound_GetSystemObject         (sound: FMOD_SOUND; var system: FMOD_SYSTEM): FMOD_RESULT; stdcall;
 
 (*
-     Standard sound manipulation functions.                                                
+     Standard sound manipulation functions.
 *)
 
 function FMOD_Sound_Lock                    (sound: FMOD_SOUND; offset, length: Cardinal; var ptr1: Pointer; var ptr2: Pointer; var len1: Cardinal; var len2: Cardinal): FMOD_RESULT; stdcall;
@@ -215,7 +215,7 @@ function FMOD_Sound_GetSubSound             (sound: FMOD_SOUND; index: Integer; 
 function FMOD_Sound_SetSubSoundSentence     (sound: FMOD_SOUND; var subsoundlist: Integer; numsubsounds: Integer): FMOD_RESULT; stdcall;
 function FMOD_Sound_GetName                 (sound: FMOD_SOUND; name: PChar; namelen: Integer): FMOD_RESULT; stdcall;
 function FMOD_Sound_GetLength               (sound: FMOD_SOUND; var length: Cardinal; lengthtype: Cardinal): FMOD_RESULT; stdcall;
-function FMOD_Sound_GetFormat               (sound: FMOD_SOUND; var type_: FMOD_SOUND_TYPE; var format: FMOD_SOUND_FORMAT; var channels: Integer; var bits: Integer): FMOD_RESULT; stdcall; 
+function FMOD_Sound_GetFormat               (sound: FMOD_SOUND; var type_: FMOD_SOUND_TYPE; var format: FMOD_SOUND_FORMAT; var channels: Integer; var bits: Integer): FMOD_RESULT; stdcall;
 function FMOD_Sound_GetNumSubSounds         (sound: FMOD_SOUND; var numsubsounds: Integer): FMOD_RESULT; stdcall;
 function FMOD_Sound_GetNumTags              (sound: FMOD_SOUND; var numtags: Integer; var numtagsupdated: Integer): FMOD_RESULT; stdcall;
 function FMOD_Sound_GetTag                  (sound: FMOD_SOUND; const name: PChar; index: Integer; var tag: FMOD_TAG): FMOD_RESULT; stdcall;
@@ -224,7 +224,7 @@ function FMOD_Sound_ReadData                (sound: FMOD_SOUND; buffer: Pointer;
 function FMOD_Sound_SeekData                (sound: FMOD_SOUND; pcm: Cardinal): FMOD_RESULT; stdcall;
 
 (*
-     Synchronization point API.  These points can come from markers embedded in wav files, and can also generate channel callbacks.        
+     Synchronization point API.  These points can come from markers embedded in wav files, and can also generate channel callbacks.
 *)
 
 function FMOD_Sound_GetNumSyncPoints        (sound: FMOD_SOUND; var numsyncpoints: Integer): FMOD_RESULT; stdcall;
@@ -363,11 +363,11 @@ function FMOD_ChannelGroup_GetPitch         (channelgroup: FMOD_CHANNELGROUP; va
 *)
 
 function FMOD_ChannelGroup_Stop                    (channelgroup: FMOD_CHANNELGROUP): FMOD_RESULT; stdcall;
-function FMOD_ChannelGroup_OverridePaused          (channelgroup: FMOD_CHANNELGROUP; paused: FMOD_BOOL): FMOD_RESULT; stdcall;
+// function FMOD_ChannelGroup_OverridePaused          (channelgroup: FMOD_CHANNELGROUP; paused: FMOD_BOOL): FMOD_RESULT; stdcall;
 function FMOD_ChannelGroup_OverrideVolume          (channelgroup: FMOD_CHANNELGROUP; volume : Single): FMOD_RESULT; stdcall;
 function FMOD_ChannelGroup_OverrideFrequency       (channelgroup: FMOD_CHANNELGROUP; frequency: Single): FMOD_RESULT; stdcall;
 function FMOD_ChannelGroup_OverridePan             (channelgroup: FMOD_CHANNELGROUP; pan: Single): FMOD_RESULT; stdcall;
-function FMOD_ChannelGroup_OverrideMute            (channelgroup: FMOD_CHANNELGROUP; mute: FMOD_BOOL): FMOD_RESULT; stdcall;
+// function FMOD_ChannelGroup_OverrideMute            (channelgroup: FMOD_CHANNELGROUP; mute: FMOD_BOOL): FMOD_RESULT; stdcall;
 function FMOD_ChannelGroup_OverrideReverbProperties(channelgroup: FMOD_CHANNELGROUP; const prop: FMOD_REVERB_CHANNELPROPERTIES): FMOD_RESULT; stdcall;
 function FMOD_ChannelGroup_Override3DAttributes    (channelgroup: FMOD_CHANNELGROUP; const pos: FMOD_VECTOR; const vel: FMOD_VECTOR): FMOD_RESULT; stdcall;
 function FMOD_ChannelGroup_OverrideSpeakerMix      (channelgroup: FMOD_CHANNELGROUP; frontleft, frontright, center, lfe, backleft, backright, sideleft, sideright: Single): FMOD_RESULT; stdcall;
@@ -422,14 +422,14 @@ function FMOD_DSP_GetNumInputs              (dsp: FMOD_DSP; var numinputs: Integ
 function FMOD_DSP_GetNumOutputs             (dsp: FMOD_DSP; var numoutputs: Integer): FMOD_RESULT; stdcall;
 function FMOD_DSP_GetInput                  (dsp: FMOD_DSP; index: Integer; var input: FMOD_DSP): FMOD_RESULT; stdcall;
 function FMOD_DSP_GetOutput                 (dsp: FMOD_DSP; index: Integer; var output: FMOD_DSP): FMOD_RESULT; stdcall;
-function FMOD_DSP_SetInputMix               (dsp: FMOD_DSP; index: Integer; volume: Single): FMOD_RESULT; stdcall;
-function FMOD_DSP_GetInputMix               (dsp: FMOD_DSP; index: Integer; var volume: Single): FMOD_RESULT; stdcall;
-function FMOD_DSP_SetInputLevels            (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
-function FMOD_DSP_GetInputLevels            (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
-function FMOD_DSP_SetOutputMix              (dsp: FMOD_DSP; index: Integer; volume: Single): FMOD_RESULT; stdcall;
-function FMOD_DSP_GetOutputMix              (dsp: FMOD_DSP; index: Integer; var volume: Single): FMOD_RESULT; stdcall;
-function FMOD_DSP_SetOutputLevels           (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
-function FMOD_DSP_GetOutputLevels           (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
+// function FMOD_DSP_SetInputMix               (dsp: FMOD_DSP; index: Integer; volume: Single): FMOD_RESULT; stdcall;
+// function FMOD_DSP_GetInputMix               (dsp: FMOD_DSP; index: Integer; var volume: Single): FMOD_RESULT; stdcall;
+// function FMOD_DSP_SetInputLevels            (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
+// function FMOD_DSP_GetInputLevels            (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
+// function FMOD_DSP_SetOutputMix              (dsp: FMOD_DSP; index: Integer; volume: Single): FMOD_RESULT; stdcall;
+// function FMOD_DSP_GetOutputMix              (dsp: FMOD_DSP; index: Integer; var volume: Single): FMOD_RESULT; stdcall;
+// function FMOD_DSP_SetOutputLevels           (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
+// function FMOD_DSP_GetOutputLevels           (dsp: FMOD_DSP; index: Integer; speaker: FMOD_SPEAKER; const levels: Single; numlevels: Integer): FMOD_RESULT; stdcall;
 
 (*
      DSP unit control
@@ -455,7 +455,7 @@ function FMOD_DSP_ShowConfigDialog          (dsp: FMOD_DSP; hwnd: Pointer; show:
      DSP attributes.
 *)
 
-function FMOD_DSP_GetInfo                   (dsp: FMOD_DSP; name:PChar; var version: cardinal; var channels:integer; var configwidth:integer; var configheight:integer): FMOD_RESULT; stdcall; 
+function FMOD_DSP_GetInfo                   (dsp: FMOD_DSP; name:PChar; var version: cardinal; var channels:integer; var configwidth:integer; var configheight:integer): FMOD_RESULT; stdcall;
 function FMOD_DSP_SetDefaults               (dsp: FMOD_DSP; frequency: Single; volume: Single; pan: Single; var levels: Single; priority: Integer): FMOD_RESULT; stdcall;
 function FMOD_DSP_GetDefaults               (dsp: FMOD_DSP; var frequency: Single; var volume: Single; var pan: Single; var priority: Integer): FMOD_RESULT; stdcall;
 
@@ -522,9 +522,9 @@ begin
   FMOD_Unload := FMOD_OK;
 end;
 
-(*                                          
+(*
     FMOD System memory functions (optional).
-*)                                          
+*)
 
 function FMOD_Memory_Initialize             ; external FMOD_DLL;
 function FMOD_Memory_GetStats               ; external FMOD_DLL;
@@ -535,19 +535,19 @@ function FMOD_Memory_GetStats               ; external FMOD_DLL;
 
 function FMOD_System_Create                 ; external FMOD_DLL;
 function FMOD_System_Release                ; external FMOD_DLL;
-                                            
-(*                                          
-    'System' API                            
-*)                                          
-                                            
-(*                                          
-     Pre-init functions.                    
-*)                                          
-                                            
+
+(*
+    'System' API
+*)
+
+(*
+     Pre-init functions.
+*)
+
 function FMOD_System_SetOutput              ; external FMOD_DLL;
 function FMOD_System_GetOutput              ; external FMOD_DLL;
 function FMOD_System_GetNumDrivers          ; external FMOD_DLL;
-function FMOD_System_GetDriverName          ; external FMOD_DLL;
+// function FMOD_System_GetDriverName          ; external FMOD_DLL;
 function FMOD_System_GetDriverCaps          ; external FMOD_DLL;
 function FMOD_System_SetDriver              ; external FMOD_DLL;
 function FMOD_System_GetDriver              ; external FMOD_DLL;
@@ -566,10 +566,10 @@ function FMOD_System_GetAdvancedSettings    ; external FMOD_DLL;
 function FMOD_System_SetSpeakerMode         ; external FMOD_DLL;
 function FMOD_System_GetSpeakerMode         ; external FMOD_DLL;
 
-(*                                          
-     Plug-in support                        
-*)                                          
-                                           
+(*
+     Plug-in support
+*)
+
 function FMOD_System_SetPluginPath          ; external FMOD_DLL;
 function FMOD_System_LoadPlugin             ; external FMOD_DLL;
 function FMOD_System_GetNumPlugins          ; external FMOD_DLL;
@@ -577,38 +577,38 @@ function FMOD_System_GetPluginInfo          ; external FMOD_DLL;
 function FMOD_System_UnloadPlugin           ; external FMOD_DLL;
 function FMOD_System_SetOutputByPlugin      ; external FMOD_DLL;
 function FMOD_System_GetOutputByPlugin      ; external FMOD_DLL;
-function FMOD_System_CreateCodec            ; external FMOD_DLL;
-                                            
-(*                                          
-     Init/Close                             
-*)                                          
-                                            
+// function FMOD_System_CreateCodec            ; external FMOD_DLL;
+
+(*
+     Init/Close
+*)
+
 function FMOD_System_Init                   ; external FMOD_DLL;
-function FMOD_System_Close                  ; external FMOD_DLL;                                            
-                                           
-(*                                          
-     General post-init system functions     
-*)                                          
-                                            
+function FMOD_System_Close                  ; external FMOD_DLL;
+
+(*
+     General post-init system functions
+*)
+
 function FMOD_System_Update                 ; external FMOD_DLL;
-function FMOD_System_UpdateFinished         ; external FMOD_DLL;
-                                            
+// function FMOD_System_UpdateFinished         ; external FMOD_DLL;
+
 function FMOD_System_Set3DSettings          ; external FMOD_DLL;
 function FMOD_System_Get3DSettings          ; external FMOD_DLL;
 function FMOD_System_Set3DNumListeners      ; external FMOD_DLL;
 function FMOD_System_Get3DNumListeners      ; external FMOD_DLL;
 function FMOD_System_Set3DListenerAttributes; external FMOD_DLL;
 function FMOD_System_Get3DListenerAttributes; external FMOD_DLL;
-                                            
-function FMOD_System_SetSpeakerPosition     ; external FMOD_DLL;
-function FMOD_System_GetSpeakerPosition     ; external FMOD_DLL;
+
+// function FMOD_System_SetSpeakerPosition     ; external FMOD_DLL;
+// function FMOD_System_GetSpeakerPosition     ; external FMOD_DLL;
 function FMOD_System_SetStreamBufferSize    ; external FMOD_DLL;
 function FMOD_System_GetStreamBufferSize    ; external FMOD_DLL;
-                                            
-(*                                          
-     System information functions.          
-*)                                          
-                                            
+
+(*
+     System information functions.
+*)
+
 function FMOD_System_GetVersion             ; external FMOD_DLL;
 function FMOD_System_GetOutputHandle        ; external FMOD_DLL;
 function FMOD_System_GetChannelsPlaying     ; external FMOD_DLL;
@@ -618,53 +618,53 @@ function FMOD_System_GetNumCDROMDrives      ; external FMOD_DLL;
 function FMOD_System_GetCDROMDriveName      ; external FMOD_DLL;
 function FMOD_System_GetSpectrum            ; external FMOD_DLL;
 function FMOD_System_GetWaveData            ; external FMOD_DLL;
-                                            
-(*                                          
-     Sound/DSP/Channel/FX creation and retrieval.       
-*)                                          
-                                            
+
+(*
+     Sound/DSP/Channel/FX creation and retrieval.
+*)
+
 function FMOD_System_CreateSound            ; external FMOD_DLL;
 function FMOD_System_CreateStream           ; external FMOD_DLL;
 function FMOD_System_CreateDSP              ; external FMOD_DLL;
 function FMOD_System_CreateDSPByType        ; external FMOD_DLL;
-function FMOD_System_CreateDSPByIndex       ; external FMOD_DLL;
+// function FMOD_System_CreateDSPByIndex       ; external FMOD_DLL;
 function FMOD_System_CreateChannelGroup     ; external FMOD_DLL;
-                                            
+
 function FMOD_System_PlaySound              ; external FMOD_DLL;
 function FMOD_System_PlayDSP                ; external FMOD_DLL;
 function FMOD_System_GetChannel             ; external FMOD_DLL;
 function FMOD_System_GetMasterChannelGroup  ; external FMOD_DLL;
-                                            
-(*                                          
-     Reverb API                             
-*)                                          
+
+(*
+     Reverb API
+*)
 
 function FMOD_System_SetReverbProperties    ; external FMOD_DLL;
 function FMOD_System_GetReverbProperties    ; external FMOD_DLL;
 Function FMOD_System_SetReverbAmbientProperties; external fmod_dll;
-(*                                          
+(*
      System level DSP access.
-*)                                          
-                                            
+*)
+
 function FMOD_System_GetDSPHead             ; external FMOD_DLL;
 function FMOD_System_AddDSP                 ; external FMOD_DLL;
 function FMOD_System_LockDSP                ; external FMOD_DLL;
 function FMOD_System_UnlockDSP              ; external FMOD_DLL;
-                                            
-(*                                          
+
+(*
      Recording API
-*)                                          
-                                            
-function FMOD_System_SetRecordDriver        ; external FMOD_DLL;
-function FMOD_System_GetRecordDriver        ; external FMOD_DLL;
+*)
+
+// function FMOD_System_SetRecordDriver        ; external FMOD_DLL;
+// function FMOD_System_GetRecordDriver        ; external FMOD_DLL;
 function FMOD_System_GetRecordNumDrivers    ; external FMOD_DLL;
-function FMOD_System_GetRecordDriverName    ; external FMOD_DLL;
+// function FMOD_System_GetRecordDriverName    ; external FMOD_DLL;
 function FMOD_System_GetRecordPosition      ; external FMOD_DLL;
 
 function FMOD_System_RecordStart            ; external FMOD_DLL;
 function FMOD_System_RecordStop             ; external FMOD_DLL;
 function FMOD_System_IsRecording            ; external FMOD_DLL;
-                                            
+
 (*
      Geometry API.
 *)
@@ -674,31 +674,31 @@ function FMOD_System_SetGeometrySettings    ; external FMOD_DLL;
 function FMOD_System_GetGeometrySettings    ; external FMOD_DLL;
 function FMOD_System_LoadGeometry           ; external FMOD_DLL;
 
-(*                                          
-     Network functions                      
-*)                                          
-                                            
+(*
+     Network functions
+*)
+
 function FMOD_System_SetNetworkProxy        ; external FMOD_DLL;
 function FMOD_System_GetNetworkProxy        ; external FMOD_DLL;
 function FMOD_System_SetNetworkTimeout      ; external FMOD_DLL;
 function FMOD_System_GetNetworkTimeout      ; external FMOD_DLL;
-                                            
+
 (*
-     Userdata set/get                         
+     Userdata set/get
 *)
 
 function FMOD_System_SetUserData            ; external FMOD_DLL;
 function FMOD_System_GetUserData            ; external FMOD_DLL;
-                                            
-(*                                          
-    'Sound' API                             
-*)                                          
-                                            
+
+(*
+    'Sound' API
+*)
+
 function FMOD_Sound_Release                 ; external FMOD_DLL;
 function FMOD_Sound_GetSystemObject         ; external FMOD_DLL;
-                                            
+
 (*
-     Standard sound manipulation functions.                                                
+     Standard sound manipulation functions.
 *)
 
 function FMOD_Sound_Lock                    ; external FMOD_DLL;
@@ -727,7 +727,7 @@ function FMOD_Sound_ReadData                ; external FMOD_DLL;
 function FMOD_Sound_SeekData                ; external FMOD_DLL;
 
 (*
-     Synchronization point API.  These points can come from markers embedded in wav files, and can also generate channel callbacks.        
+     Synchronization point API.  These points can come from markers embedded in wav files, and can also generate channel callbacks.
 *)
 
 function FMOD_Sound_GetNumSyncPoints        ; external FMOD_DLL;
@@ -735,7 +735,7 @@ function FMOD_Sound_GetSyncPoint            ; external FMOD_DLL;
 function FMOD_Sound_GetSyncPointInfo        ; external FMOD_DLL;
 function FMOD_Sound_AddSyncPoint            ; external FMOD_DLL;
 function FMOD_Sound_DeleteSyncPoint         ; external FMOD_DLL;
-                                            
+
 (*
      Functions also in Channel class but here they are the 'default' to save having to change it in Channel all the time.
 *)
@@ -746,20 +746,20 @@ function FMOD_Sound_SetLoopCount            ; external FMOD_DLL;
 function FMOD_Sound_GetLoopCount            ; external FMOD_DLL;
 function FMOD_Sound_SetLoopPoints           ; external FMOD_DLL;
 function FMOD_Sound_GetLoopPoints           ; external FMOD_DLL;
-                                            
+
 (*
      Userdata set/get.
 *)
 
 function FMOD_Sound_SetUserData             ; external FMOD_DLL;
 function FMOD_Sound_GetUserData             ; external FMOD_DLL;
-                                            
-(*                                          
-    'Channel' API                           
-*)                                          
-                                            
+
+(*
+    'Channel' API
+*)
+
 function FMOD_Channel_GetSystemObject       ; external FMOD_DLL;
-                                            
+
 function FMOD_Channel_Stop                  ; external FMOD_DLL;
 function FMOD_Channel_SetPaused             ; external FMOD_DLL;
 function FMOD_Channel_GetPaused             ; external FMOD_DLL;
@@ -826,7 +826,7 @@ function FMOD_Channel_GetCurrentSound       ; external FMOD_DLL;
 function FMOD_Channel_GetSpectrum           ; external FMOD_DLL;
 function FMOD_Channel_GetWaveData           ; external FMOD_DLL;
 function FMOD_Channel_GetIndex              ; external FMOD_DLL;
-                                            
+
 (*
      Functions also found in Sound class but here they can be set per channel.
 *)
@@ -837,14 +837,14 @@ function FMOD_Channel_SetLoopCount          ; external FMOD_DLL;
 function FMOD_Channel_GetLoopCount          ; external FMOD_DLL;
 function FMOD_Channel_SetLoopPoints         ; external FMOD_DLL;
 function FMOD_Channel_GetLoopPoints         ; external FMOD_DLL;
-                                            
+
 (*
      Userdata set/get.
 *)
 
 function FMOD_Channel_SetUserData           ; external FMOD_DLL;
 function FMOD_Channel_GetUserData           ; external FMOD_DLL;
-                                            
+
 (*
     'ChannelGroup' API
 *)
@@ -866,11 +866,11 @@ function FMOD_ChannelGroup_GetPitch         ; external FMOD_DLL;
 *)
 
 function FMOD_ChannelGroup_Stop                    ; external FMOD_DLL;
-function FMOD_ChannelGroup_OverridePaused          ; external FMOD_DLL;
+// function FMOD_ChannelGroup_OverridePaused          ; external FMOD_DLL;
 function FMOD_ChannelGroup_OverrideVolume          ; external FMOD_DLL;
 function FMOD_ChannelGroup_OverrideFrequency       ; external FMOD_DLL;
 function FMOD_ChannelGroup_OverridePan             ; external FMOD_DLL;
-function FMOD_ChannelGroup_OverrideMute            ; external FMOD_DLL;
+// function FMOD_ChannelGroup_OverrideMute            ; external FMOD_DLL;
 function FMOD_ChannelGroup_OverrideReverbProperties; external FMOD_DLL;
 function FMOD_ChannelGroup_Override3DAttributes    ; external FMOD_DLL;
 function FMOD_ChannelGroup_OverrideSpeakerMix      ; external FMOD_DLL;
@@ -907,13 +907,13 @@ function FMOD_ChannelGroup_GetWaveData      ; external FMOD_DLL;
 function FMOD_ChannelGroup_SetUserData      ; external FMOD_DLL;
 function FMOD_ChannelGroup_GetUserData      ; external FMOD_DLL;
 
-(*                                          
-    'DSP' API                               
-*)                                          
-                                            
+(*
+    'DSP' API
+*)
+
 function FMOD_DSP_Release                   ; external FMOD_DLL;
 function FMOD_DSP_GetSystemObject           ; external FMOD_DLL;
-                                            
+
 (*
      Connection / disconnection / input and output enumeration.
 *)
@@ -925,14 +925,14 @@ function FMOD_DSP_GetNumInputs              ; external FMOD_DLL;
 function FMOD_DSP_GetNumOutputs             ; external FMOD_DLL;
 function FMOD_DSP_GetInput                  ; external FMOD_DLL;
 function FMOD_DSP_GetOutput                 ; external FMOD_DLL;
-function FMOD_DSP_SetInputMix               ; external FMOD_DLL;
-function FMOD_DSP_GetInputMix               ; external FMOD_DLL;
-function FMOD_DSP_SetInputLevels            ; external FMOD_DLL;
-function FMOD_DSP_GetInputLevels            ; external FMOD_DLL;
-function FMOD_DSP_SetOutputMix              ; external FMOD_DLL;
-function FMOD_DSP_GetOutputMix              ; external FMOD_DLL;
-function FMOD_DSP_SetOutputLevels           ; external FMOD_DLL;
-function FMOD_DSP_GetOutputLevels           ; external FMOD_DLL;
+// function FMOD_DSP_SetInputMix               ; external FMOD_DLL;
+// function FMOD_DSP_GetInputMix               ; external FMOD_DLL;
+// function FMOD_DSP_SetInputLevels            ; external FMOD_DLL;
+// function FMOD_DSP_GetInputLevels            ; external FMOD_DLL;
+// function FMOD_DSP_SetOutputMix              ; external FMOD_DLL;
+// function FMOD_DSP_GetOutputMix              ; external FMOD_DLL;
+// function FMOD_DSP_SetOutputLevels           ; external FMOD_DLL;
+// function FMOD_DSP_GetOutputLevels           ; external FMOD_DLL;
 
 (*
      DSP unit control

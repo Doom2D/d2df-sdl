@@ -4,7 +4,7 @@ interface
 
 uses
   g_basic, g_player, e_graphics, Classes, g_res_downloader,
-  SysUtils, g_sound, g_gui, MAPSTRUCT, WADEDITOR, md5asm;
+  SysUtils, g_sound, g_gui, MAPSTRUCT, WADEDITOR, md5;
 
 type
   TGameSettings = record

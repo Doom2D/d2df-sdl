@@ -50,7 +50,6 @@ uses
   g_weapons in 'g_weapons.pas',
   g_window in 'g_window.pas',
   sysutils,
-  md5asm in '../Lib/md5asm.pas',
   fmod in '../Lib/FMOD/fmod.pas',
   fmoderrors in '../Lib/FMOD/fmoderrors.pas',
   fmodpresets in '../Lib/FMOD/fmodpresets.pas',
@@ -59,8 +58,8 @@ uses
   g_panel in 'g_panel.pas',
   g_language in 'g_language.pas';
 
-{$R *.RES}
-{$R CustomRes.RES}
+{$R *.res}
+{$R CustomRes.res}
 
 begin
   try

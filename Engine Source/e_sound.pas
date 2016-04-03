@@ -20,7 +20,7 @@ type
   TBasicSound = class (TObject)
   private
     FChannel: FMOD_CHANNEL;
-  
+
   protected
     FID: DWORD;
     FLoop: Boolean;
@@ -28,7 +28,7 @@ type
     FPriority: Integer;
 
     function RawPlay(Pan: Single; Volume: Single; aPos: DWORD): Boolean;
-    
+
   public
     constructor Create();
     destructor Destroy(); override;
@@ -80,7 +80,7 @@ uses
   g_window, g_options, BinEditor;
 
 const
-  N_CHANNELS = 512;   
+  N_CHANNELS = 512;
 
 var
   F_System: FMOD_SYSTEM = nil;
@@ -192,6 +192,8 @@ begin
       FMOD_OUTPUTTYPE_OPENAL: e_WriteLog('FMOD Output Method: OPENAL', MSG_NOTIFY);
       FMOD_OUTPUTTYPE_WASAPI: e_WriteLog('FMOD Output Method: WASAPI', MSG_NOTIFY);
       FMOD_OUTPUTTYPE_ASIO: e_WriteLog('FMOD Output Method: ASIO', MSG_NOTIFY);
+      FMOD_OUTPUTTYPE_OSS:  e_WriteLog('FMOD Output Method: OSS', MSG_NOTIFY);
+      FMOD_OUTPUTTYPE_ALSA: e_Writelog('FMOD Output Method: ALSA', MSG_NOTIFY);
       else e_WriteLog('FMOD Output Method: Unknown', MSG_NOTIFY);
     end;
 
@@ -199,13 +201,7 @@ begin
   if res <> FMOD_OK then
     e_WriteLog('Error getting FMOD driver!', MSG_WARNING)
   else
-    begin
-      {res := FMOD_System_GetDriverName(F_System, drv, str, 64);
-      if res <> FMOD_OK then
-        e_WriteLog('Error getting FMOD driver name!', MSG_WARNING)
-      else }
-        e_WriteLog('FMOD driver id: '+IntToStr(drv), MSG_NOTIFY);
-    end;
+    e_WriteLog('FMOD driver id: '+IntToStr(drv), MSG_NOTIFY);
 
   Result := True;
 end;
@@ -213,7 +209,7 @@ end;
 function FindESound(): DWORD;
 var
   i: Integer;
-  
+
 begin
   if e_SoundsArray <> nil then
     for i := 0 to High(e_SoundsArray) do
@@ -549,13 +545,13 @@ var
   i: Integer;
   Chan: FMOD_CHANNEL;
   vol: Single;
-  
+
 begin
   for i := 0 to N_CHANNELS-1 do
   begin
     Chan := nil;
     res := FMOD_System_GetChannel(F_System, i, Chan);
-    
+
     if (res = FMOD_OK) and (Chan <> nil) then
     begin
       res := FMOD_Channel_GetVolume(Chan, vol);
@@ -566,7 +562,7 @@ begin
           vol := SoundMod
         else
           vol := vol * SoundMod;
-          
+
         res := FMOD_Channel_SetVolume(Chan, vol);
 
         if res <> FMOD_OK then
@@ -582,7 +578,7 @@ var
   res: FMOD_RESULT;
   i: Integer;
   Chan: FMOD_CHANNEL;
-  
+
 begin
   if Enable = SoundMuted then
     Exit;
@@ -593,7 +589,7 @@ begin
   begin
     Chan := nil;
     res := FMOD_System_GetChannel(F_System, i, Chan);
-    
+
     if (res = FMOD_OK) and (Chan <> nil) then
     begin
       res := FMOD_Channel_SetMute(Chan, Enable);
@@ -610,13 +606,13 @@ var
   res: FMOD_RESULT;
   i: Integer;
   Chan: FMOD_CHANNEL;
-  
+
 begin
   for i := 0 to N_CHANNELS-1 do
   begin
     Chan := nil;
     res := FMOD_System_GetChannel(F_System, i, Chan);
-    
+
     if (res = FMOD_OK) and (Chan <> nil) then
     begin
       res := FMOD_Channel_Stop(Chan);
@@ -655,7 +651,7 @@ begin
     e_WriteLog(FMOD_ErrorString(res), MSG_FATALERROR);
     Exit;
   end;
-  
+
   res := FMOD_System_Release(F_System);
   if res <> FMOD_OK then
   begin
@@ -767,7 +763,7 @@ function TBasicSound.IsPlaying(): Boolean;
 var
   res: FMOD_RESULT;
   b: LongBool;
-                         
+
 begin
   Result := False;
 
@@ -786,7 +782,7 @@ end;
 procedure TBasicSound.Stop();
 var
   res: FMOD_RESULT;
-  
+
 begin
   if FChannel = nil then
     Exit;
@@ -983,7 +979,7 @@ end;
 procedure TBasicSound.SetPriority(priority: Integer);
 var
   res: FMOD_RESULT;
-  
+
 begin
   if (FChannel <> nil) and (FPriority <> priority) and
      (priority >= 0) and (priority <= 256) then
