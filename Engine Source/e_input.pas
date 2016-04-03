@@ -110,7 +110,7 @@ type
 
 var
   KeyBuffer: array [0..e_MaxKbdKeys] of Boolean;
-  Joysticks: array of TJoystick;        
+  Joysticks: array of TJoystick = nil;        
 
 function OpenJoysticks(): Byte;
 var
@@ -118,26 +118,27 @@ var
   joy: PSDL_Joystick;
 begin
   k := SDL_NumJoysticks();
+  if k = 0 then Exit;
   c := 0;
   for i := 0 to k do
   begin
     joy := SDL_JoystickOpen(i);
-	if joy <> nil then
-	begin
-	  Inc(c);
-	  e_WriteLog('Input: Opened SDL joystick ' + IntToStr(i) + ' as joystick ' + IntToStr(c) + ':', MSG_NOTIFY);
-	  SetLength(Joysticks, c);
-	  with Joysticks[c-1] do
-	  begin
-	    ID := i;
-		  Handle := joy;
-		  Axes := SDL_JoystickNumAxes(joy);
-		  Buttons := SDL_JoystickNumButtons(joy);
-		  Hats := SDL_JoystickNumHats(joy);
-	    e_WriteLog('       ' + IntToStr(Axes) + ' axes, ' + IntToStr(Buttons) + ' buttons, ' +
-	               IntToStr(Hats) + ' hats.', MSG_NOTIFY);
-	  end;
-	end;
+    if joy <> nil then
+    begin
+      Inc(c);
+      e_WriteLog('Input: Opened SDL joystick ' + IntToStr(i) + ' as joystick ' + IntToStr(c) + ':', MSG_NOTIFY);
+      SetLength(Joysticks, c);
+      with Joysticks[c-1] do
+      begin
+        ID := i;
+        Handle := joy;
+        Axes := SDL_JoystickNumAxes(joy);
+        Buttons := SDL_JoystickNumButtons(joy);
+        Hats := SDL_JoystickNumHats(joy);
+        e_WriteLog('       ' + IntToStr(Axes) + ' axes, ' + IntToStr(Buttons) + ' buttons, ' +
+                   IntToStr(Hats) + ' hats.', MSG_NOTIFY);
+      end;
+    end;
   end;
   
   Result := c;
@@ -174,6 +175,8 @@ var
   i, j, d: Word;
   hat: Byte;
 begin
+  if (Joysticks = nil) or (e_JoysticksAvailable = 0) then
+    Exit;
   SDL_JoystickUpdate();
   for j := Low(Joysticks) to High(Joysticks) do
     with Joysticks[j] do
@@ -260,6 +263,7 @@ var
 begin
   for i := Low(KeyBuffer) to High(KeyBuffer) do
     KeyBuffer[i] := False;
+  if Joysticks = nil then Exit;
   for i := Low(Joysticks) to High(Joysticks) do
   begin
     for j := Low(Joysticks[i].ButtBuf) to High(Joysticks[i].ButtBuf) do
@@ -416,6 +420,7 @@ var
   i: Integer;
 begin
   Result := -1;
+  if Joysticks = nil then Exit;
   for i := Low(Joysticks) to High(Joysticks) do
     if Joysticks[i].ID = handle then
     begin
