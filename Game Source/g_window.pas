@@ -66,22 +66,23 @@ end;
 function g_Window_SetDisplay(): Boolean;
 begin
   Result := False;
-  
+
   e_WriteLog('Setting display mode...', MSG_NOTIFY);
-  
+
   if wWindowCreated then
     e_SaveGLContext(); // we need this and restore because of a bug in SDL1.2, apparently
 
   wFlags := SDL_RESIZABLE or SDL_OPENGL;
   if gFullscreen then wFlags := wFlags or SDL_FULLSCREEN;
-  
+
   h_Wnd := SDL_SetVideoMode(gScreenWidth, gScreenHeight, gBPP, wFlags);
   SDL_EnableUNICODE(SDL_ENABLE);
   SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
-  
-  if wWindowCreated then 
+  SDL_ShowCursor(SDL_DISABLE);
+
+  if wWindowCreated then
     e_RestoreGLContext();
-    
+
   Result := h_Wnd <> nil;
 end;
 
@@ -101,7 +102,7 @@ begin
   modesp := SDL_ListModes(nil, SDL_FULLSCREEN or SDL_HWSURFACE);
   if modesp = nil then exit;
   if Pointer(-1) = modesp then exit;
-  
+
   tmpp := modesp^;
   i := 0;
   while tmpp <> nil do
@@ -111,12 +112,12 @@ begin
       SelRes := i;
     SetLength(Result, Length(Result) + 1);
     Result[i] := IntToStr(tmpr.w) + 'x' + IntToStr(tmpr.h);
-      
+
     modesp := Pointer(Cardinal(modesp) + SizeOf(PSDL_Rect));
     tmpp := modesp^;
     Inc(i);
   end;
-  
+
   e_WriteLog('SDL: Got ' + IntToStr(Length(Result)) + ' resolutions.', MSG_NOTIFY);
 end;
 
@@ -128,10 +129,10 @@ end;
 procedure ChangeWindowSize();
 begin
   gWinSizeX := gScreenWidth;
-  gWinSizeY := gScreenHeight;  
+  gWinSizeY := gScreenHeight;
   e_ResizeWindow(gScreenWidth, gScreenHeight);
   g_Game_SetupScreenSize();
-  g_Menu_Reset();        
+  g_Menu_Reset();
   g_Game_ClearLoading();
 end;
 
@@ -149,15 +150,15 @@ begin
     gScreenHeight := H;
     NeedResize := True;
   end;
-  
+
   if gFullscreen <> FScreen then
   begin
     Result := True;
     gFullscreen := FScreen;
   end;
-  
+
   g_Window_SetDisplay();
-  
+
   if NeedResize then
     ChangeWindowSize();
 end;
@@ -168,12 +169,12 @@ var
 begin
   Result := False;
   case ev.type_ of
-    SDL_VIDEORESIZE:     
+    SDL_VIDEORESIZE:
     begin
-      g_Window_SetSize(ev.resize.w, ev.resize.h, gFullscreen);   
+      g_Window_SetSize(ev.resize.w, ev.resize.h, gFullscreen);
       e_Clear();
     end;
-    
+
     SDL_ACTIVEEVENT:
     begin
       if (ev.active.gain = 0) then
@@ -191,7 +192,7 @@ begin
 
           if gMuteWhenInactive then
             e_MuteChannels(True);
-          
+
           if g_debug_WinMsgs then
           begin
             g_Console_Add('Inactive indeed');
@@ -200,12 +201,12 @@ begin
 
           gWinActive := False;
         end;
-        
+
         if LongBool(ev.active.state and SDL_APPACTIVE) and (not wMinimized) then
         begin
           e_ResizeWindow(0, 0);
           wMinimized := True;
-            
+
           if g_debug_WinMsgs then
           begin
             g_Console_Add('Minimized indeed');
@@ -225,7 +226,7 @@ begin
         if LongBool(ev.active.state and SDL_APPINPUTFOCUS) and (not gWinActive) then
         begin
           e_EnableInput := True;
-          
+
           if gMuteWhenInactive then
             e_MuteChannels(False);
 
@@ -237,13 +238,13 @@ begin
 
           gWinActive := True;
         end;
-        
+
         if LongBool(ev.active.state and SDL_APPACTIVE) and wMinimized then
         begin
           e_ResizeWindow(gScreenWidth, gScreenHeight);
-          
+
           wMinimized := False;
-            
+
           if g_debug_WinMsgs then
           begin
             g_Console_Add('Restored indeed');
@@ -252,13 +253,13 @@ begin
         end;
       end;
     end;
-    
+
     SDL_VIDEOEXPOSE:
     begin
       // TODO: the fuck is this event?
       // Draw();
     end;
-    
+
     SDL_QUITEV:
     begin
       if gExit <> EXIT_QUIT then
@@ -273,8 +274,8 @@ begin
       end;
       Result := True;
     end;
-    
-    SDL_KEYDOWN: 
+
+    SDL_KEYDOWN:
     begin
       key := ev.key.keysym.sym;
       keychr := ev.key.keysym.unicode;
@@ -287,8 +288,8 @@ begin
         CharPress(Chr(keychr));
       end;
     end;
-    
-    SDL_KEYUP: 
+
+    SDL_KEYUP:
       e_SetKeyState(ev.key.keysym.sym, False);
   end;
 end;
@@ -308,7 +309,7 @@ var
   flags: LongWord;
 begin
   Result := False;
-  
+
   gWinSizeX := gScreenWidth;
   gWinSizeY := gScreenHeight;
 
@@ -488,7 +489,7 @@ begin
     Result := 0;
     exit;
   end;
-  
+
   e_WriteLog('Initializing OpenGL', MSG_NOTIFY);
   InitOpenGL(gVSync);
 
@@ -512,7 +513,7 @@ begin
 
   Release();
   KillGLWindow();
-  
+
   Result := 0;
 end;
 
