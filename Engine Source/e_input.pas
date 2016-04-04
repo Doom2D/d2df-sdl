@@ -100,9 +100,9 @@ type
   TJoystick = record
     ID:      Byte;
     Handle:  PSDL_Joystick;
-	  Axes:    Byte;
-	  Buttons: Byte;
-	  Hats:    Byte;
+    Axes:    Byte;
+    Buttons: Byte;
+    Hats:    Byte;
     ButtBuf: array [0..e_MaxJoyBtns] of Boolean;
     AxisBuf: array [0..e_MaxJoyAxes] of Integer;
     HatBuf:  array [0..e_MaxJoyHats] of array [HAT_LEFT..HAT_DOWN] of Boolean;

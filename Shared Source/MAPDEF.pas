@@ -116,7 +116,7 @@ const
   MONSTER_MAN    = 20;
 
   TRIGGER_NONE            = 0;
-  TRIGGER_EXIT	          = 1;
+  TRIGGER_EXIT            = 1;
   TRIGGER_TELEPORT        = 2;
   TRIGGER_OPENDOOR        = 3;
   TRIGGER_CLOSEDOOR       = 4;

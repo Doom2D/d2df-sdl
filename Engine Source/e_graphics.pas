@@ -1378,24 +1378,24 @@ begin
  for loop1 := 0 to XCount*YCount-1 do
  begin
   cx := (loop1 mod XCount)/XCount;
-	cy := (loop1 div YCount)/YCount;
+  cy := (loop1 div YCount)/YCount;
 
-	glNewList(e_TextureFonts[id].Base+loop1, GL_COMPILE);
-	 glBegin(GL_QUADS);
+  glNewList(e_TextureFonts[id].Base+loop1, GL_COMPILE);
+   glBegin(GL_QUADS);
     glTexCoord2f(cx, 1.0-cy-1/YCount);
     glVertex2d(0, e_Textures[Tex].Height div YCount);
 
-	  glTexCoord2f(cx+1/XCount, 1.0-cy-1/YCount);
+    glTexCoord2f(cx+1/XCount, 1.0-cy-1/YCount);
     glVertex2i(e_Textures[Tex].Width div XCount, e_Textures[Tex].Height div YCount);
 
-		glTexCoord2f(cx+1/XCount, 1.0-cy);
+    glTexCoord2f(cx+1/XCount, 1.0-cy);
     glVertex2i(e_Textures[Tex].Width div XCount, 0);
 
-		glTexCoord2f(cx, 1.0-cy);
+    glTexCoord2f(cx, 1.0-cy);
     glVertex2i(0, 0);
    glEnd();
-	 glTranslated((e_Textures[Tex].Width div XCount)+Space, 0, 0);
-	glEndList();
+   glTranslated((e_Textures[Tex].Width div XCount)+Space, 0, 0);
+  glEndList();
  end;
 
  FontID := id;
@@ -1422,30 +1422,30 @@ begin
  for loop1 := 0 to XCount*YCount-1 do
  begin
   cx := (loop1 mod XCount)/XCount;
-	cy := (loop1 div YCount)/YCount;
+  cy := (loop1 div YCount)/YCount;
 
-	glNewList(e_TextureFonts[id].Base+loop1, GL_COMPILE);
-	 glBegin(GL_QUADS);
+  glNewList(e_TextureFonts[id].Base+loop1, GL_COMPILE);
+   glBegin(GL_QUADS);
     glTexCoord2f(cx, 1.0-cy-1/YCount);
     glVertex2d(0, e_Textures[Tex].Height div YCount);
 
-	  glTexCoord2f(cx+1/XCount, 1.0-cy-1/YCount);
+    glTexCoord2f(cx+1/XCount, 1.0-cy-1/YCount);
     glVertex2i(e_Textures[Tex].Width div XCount, e_Textures[Tex].Height div YCount);
 
-		glTexCoord2f(cx+1/XCount, 1.0-cy);
+    glTexCoord2f(cx+1/XCount, 1.0-cy);
     glVertex2i(e_Textures[Tex].Width div XCount, 0);
 
-		glTexCoord2f(cx, 1.0-cy);
+    glTexCoord2f(cx, 1.0-cy);
     glVertex2i(0, 0);
    glEnd();
-	 glTranslated((e_Textures[Tex].Width div XCount)+Space, 0, 0);
-	glEndList();
+   glTranslated((e_Textures[Tex].Width div XCount)+Space, 0, 0);
+  glEndList();
  end;
 end;
 
 procedure e_TextureFontKill(FontID: DWORD);
 begin
-	glDeleteLists(e_TextureFonts[FontID].Base, 256);
+  glDeleteLists(e_TextureFonts[FontID].Base, 256);
   e_TextureFonts[FontID].Base := 0;
 end;
 

@@ -36,7 +36,7 @@ type
 
 const
   DFWAD_SIGNATURE = 'DFWAD';
-  DFWAD_VERSION	 = $01;
+  DFWAD_VERSION   = $01;
 
 implementation
 
