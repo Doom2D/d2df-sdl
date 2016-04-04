@@ -17,7 +17,7 @@ procedure ReDrawWindow();
 procedure SwapBuffers();
 procedure Sleep(ms: LongWord);
 function  GetDisplayModes(dBPP: DWORD; var SelRes: DWORD): SArray;
-function  g_Window_SetDisplay(): Boolean;
+function  g_Window_SetDisplay(PreserveGL: Boolean = False): Boolean;
 function  g_Window_SetSize(W, H: Word; FScreen: Boolean): Boolean;
 
 implementation
@@ -63,13 +63,13 @@ begin
   Result := Result + 128;
 end;
 
-function g_Window_SetDisplay(): Boolean;
+function g_Window_SetDisplay(PreserveGL: Boolean = False): Boolean;
 begin
   Result := False;
 
   e_WriteLog('Setting display mode...', MSG_NOTIFY);
 
-  if wWindowCreated then
+  if wWindowCreated and PreserveGL then
     e_SaveGLContext(); // we need this and restore because of a bug in SDL1.2, apparently
 
   wFlags := SDL_RESIZABLE or SDL_OPENGL;
@@ -80,7 +80,7 @@ begin
   SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
   SDL_ShowCursor(SDL_DISABLE);
 
-  if wWindowCreated then
+  if wWindowCreated and PreserveGL then
     e_RestoreGLContext();
 
   Result := h_Wnd <> nil;
@@ -137,8 +137,11 @@ begin
 end;
 
 function g_Window_SetSize(W, H: Word; FScreen: Boolean): Boolean;
+var
+  Preserve: Boolean;
 begin
   Result := False;
+  Preserve := False;
 
   if (gScreenWidth <> W) or (gScreenHeight <> H) then
   begin
@@ -151,11 +154,12 @@ begin
   begin
     Result := True;
     gFullscreen := FScreen;
+    Preserve := True;
   end;
 
   if Result then
   begin
-    g_Window_SetDisplay();
+    g_Window_SetDisplay(Preserve);
     ChangeWindowSize();
   end;
 end;
