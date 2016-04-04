@@ -4,7 +4,7 @@
 # Building
 
 ## Requirements
-* FPC >= 3.0.0, 32-bit (with the "sdl", "gl" and "hash" packages installed);
+* FPC >= 2.6.4, 32-bit (with the "sdl", "gl" and "hash" packages installed);
 * FMODEx >= 4.26.xx;
 * libenet >= 1.3.13;
 * SDL >= 1.2.xx.
