@@ -9,7 +9,7 @@ uses
 
 const
   e_MaxKbdKeys  = 321;
-  e_MaxJoys     = 2;
+  e_MaxJoys     = 4;
   e_MaxJoyBtns  = 32;
   e_MaxJoyAxes  = 4;
   e_MaxJoyHats  = 4;
@@ -18,9 +18,9 @@ const
   
   e_MaxInputKeys = e_MaxKbdKeys + e_MaxJoys*e_MaxJoyKeys - 1;
   // $$$..$$$ -  321 Keyboard buttons/keys
-  // $$$..$$$ - 2*32 Joystick buttons
-  // $$$..$$$ -  2*4 Joystick axes (- and +)
-  // $$$..$$$ -  2*4 Joystick hats (L U R D)
+  // $$$..$$$ - 4*32 Joystick buttons
+  // $$$..$$$ -  4*4 Joystick axes (- and +)
+  // $$$..$$$ -  4*4 Joystick hats (L U R D)
   
   // these are apparently used in g_gui and g_game and elsewhere
   IK_UNKNOWN = SDLK_UNKNOWN;
@@ -82,10 +82,12 @@ var
   {e_MouseInfo:          TMouseInfo;}
   e_EnableInput:        Boolean = False;
   e_JoysticksAvailable: Byte    = 0;
-  e_JoystickDeadzones:  array [0..e_MaxJoys-1] of Integer = (8192, 8192);
+  e_JoystickDeadzones:  array [0..e_MaxJoys-1] of Integer = (8192, 8192, 8192, 8192);
   e_KeyNames:           array [0..e_MaxInputKeys] of String;
 
 implementation
+
+uses Math;
 
 const
   KBRD_END = e_MaxKbdKeys;
@@ -118,7 +120,7 @@ var
   joy: PSDL_Joystick;
 begin
   Result := 0;
-  k := SDL_NumJoysticks();
+  k := Min(e_MaxJoys, SDL_NumJoysticks());
   if k = 0 then Exit;
   c := 0;
   for i := 0 to k do
@@ -133,9 +135,9 @@ begin
       begin
         ID := i;
         Handle := joy;
-        Axes := SDL_JoystickNumAxes(joy);
-        Buttons := SDL_JoystickNumButtons(joy);
-        Hats := SDL_JoystickNumHats(joy);
+        Axes := Min(e_MaxJoyAxes, SDL_JoystickNumAxes(joy));
+        Buttons := Min(e_MaxJoyBtns, SDL_JoystickNumButtons(joy));
+        Hats := Min(e_MaxJoyHats, SDL_JoystickNumHats(joy));
         e_WriteLog('       ' + IntToStr(Axes) + ' axes, ' + IntToStr(Buttons) + ' buttons, ' +
                    IntToStr(Hats) + ' hats.', MSG_NOTIFY);
       end;
