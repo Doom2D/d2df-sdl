@@ -34,9 +34,9 @@ var
   flag: Boolean;
   wNeedTimeReset: Boolean = False;
   wWindowCreated: Boolean = False;
-  wCursorShown: Boolean = False;
+  //wCursorShown: Boolean = False;
   wMinimized: Boolean = False;
-  wNeedFree: Boolean = True;
+  //wNeedFree: Boolean = True;
   wLoadingProgress: Boolean = False;
   wLoadingQuit: Boolean = False;
   {wWinPause: Byte = 0;}
@@ -167,7 +167,7 @@ end;
 function EventHandler(ev: TSDL_Event): Boolean;
 var
   key, keychr: Word;
-  joy: Integer;
+  //joy: Integer;
 begin
   Result := False;
   case ev.type_ of
@@ -305,8 +305,8 @@ begin
 end;
 
 function CreateGLWindow(Title: PChar): Boolean;
-var
-  flags: LongWord;
+//var
+//  flags: LongWord;
 begin
   Result := False;
 
@@ -354,14 +354,14 @@ var
   ev: TSDL_Event;
   ID: DWORD;
 begin
-  wNeedFree := False;
+  //wNeedFree := False;
   wLoadingProgress := True;
   while SDL_PollEvent(@ev) > 0 do
   begin
     if (ev.type_ = SDL_QUITEV) then
       break;
   end;
-  wNeedFree := True;
+  //wNeedFree := True;
 
   if (ev.type_ = SDL_QUITEV) or (gExit = EXIT_QUIT) then
   begin

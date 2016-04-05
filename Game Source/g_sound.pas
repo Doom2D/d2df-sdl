@@ -81,7 +81,7 @@ type
 
 var
   SoundArray: Array of TGameSound;
-  SoundsMuted: Boolean = False;
+  //SoundsMuted: Boolean = False;
 
 
 function FindSound(): DWORD;

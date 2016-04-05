@@ -1722,9 +1722,9 @@ end;
 procedure CreateAllMenus();
 var
   Menu: TGUIWindow;
-  SR: TSearchRec;
-  a, cx, _y, lsi: Integer;
-  list: SArray;
+  //SR: TSearchRec;
+  a, cx, _y{, lsi}: Integer;
+  //list: SArray;
 begin
   Menu := TGUIWindow.Create('MainMenu');
   with TGUIMainMenu(Menu.AddChild(TGUIMainMenu.Create(gMenuFont, _lc[I_MENU_MAIN_MENU]))) do

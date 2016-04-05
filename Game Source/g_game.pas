@@ -369,7 +369,7 @@ var
     cur_trigger: Integer;
     cur_action: Integer;
   end;
-  InterPic: String;
+  //InterPic: String;
   InterText: record
     lines: SArray;
     img: String;
@@ -2507,7 +2507,7 @@ end;
 procedure DrawPlayer(p: TPlayer);
 var
   px, py, a, b, c, d: Integer;
-  R: TRect;
+  //R: TRect;
 begin
   if (p = nil) or (p.FDummy) then
   begin
@@ -4632,7 +4632,7 @@ procedure DebugCommands(P: SArray);
 var
   a, b: Integer;
   cmd: string;
-  pt: TPoint;
+  //pt: TPoint;
 begin
 // Команды отладочного режима:
   if gDebugMode then

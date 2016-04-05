@@ -270,10 +270,10 @@ const
   NET_KEY_CHAT     = 2048;
   NET_KEY_FORCEDIR = 4096;
 
-var
-  kBytePrev: Word = 0;
-  kDirPrev: TDirection = D_LEFT;
-  HostGameTime: Word = 0;
+//var
+  //kBytePrev: Word = 0;
+  //kDirPrev: TDirection = D_LEFT;
+  //HostGameTime: Word = 0;
 
 // HOST MESSAGES //
 
@@ -2779,8 +2779,8 @@ begin
   e_Buffer_Write(@NetOut, Byte(gPlayer1.Direction));
   g_Net_Client_Send(True, NET_CHAN_PLAYERPOS);
 
-  kBytePrev := kByte;
-  kDirPrev := gPlayer1.Direction;
+  //kBytePrev := kByte;
+  //kDirPrev := gPlayer1.Direction;
 end;
 
 procedure MC_SEND_Vote(Start: Boolean = False; Command: string = 'a');

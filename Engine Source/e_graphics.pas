@@ -1406,7 +1406,7 @@ var
   loop1 : GLuint;
   cx, cy : real;
   XCount, YCount, Space: Integer;
-  i, Tex: DWORD;
+  {i,} Tex: DWORD;
 begin
  with e_TextureFonts[id] do
  begin
