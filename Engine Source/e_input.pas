@@ -82,7 +82,7 @@ var
   {e_MouseInfo:          TMouseInfo;}
   e_EnableInput:        Boolean = False;
   e_JoysticksAvailable: Byte    = 0;
-  e_JoysticksDeadzone:  Integer = 512;
+  e_JoystickDeadzones:  array [0..e_MaxJoys-1] of Integer = (8192, 8192);
   e_KeyNames:           array [0..e_MaxInputKeys] of String;
 
 implementation
@@ -320,9 +320,9 @@ begin
       Key := (Key - JOYA_BEG) mod (e_MaxJoyAxes*2);
       dir := Key mod 2;
       if dir = AX_MINUS then
-        Result := Joysticks[JoyI].AxisBuf[Key div 2] < -e_JoysticksDeadzone
+        Result := Joysticks[JoyI].AxisBuf[Key div 2] < -e_JoystickDeadzones[JoyI]
       else 
-        Result := Joysticks[JoyI].AxisBuf[Key div 2] > e_JoysticksDeadzone
+        Result := Joysticks[JoyI].AxisBuf[Key div 2] > e_JoystickDeadzones[JoyI]
     end;    
   end
   

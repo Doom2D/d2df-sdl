@@ -168,6 +168,9 @@ type
     I_MENU_PLAYER_1,
     I_MENU_PLAYER_2,
 
+    I_MENU_CONTROL_JOYSTICKS,
+    I_MENU_CONTROL_DEADZONE,
+    
     I_MENU_CONTROL_GLOBAL,            
     I_MENU_CONTROL_SCREENSHOT,        
     I_MENU_CONTROL_STAT,
@@ -893,6 +896,11 @@ const
     ('MENU PLAYER 2',                  'Player 2',
                                        'Второй игрок'),
 
+    ('MENU CONTROL JOYSTICKS',         'Joystick Settings',
+                                       'Настройки джойстиков'),
+    ('MENU CONTROL DEADZONE',          'Joystick %d Deadzone',
+                                       'Мертвая зона джойстика %d'),
+                                       
     ('MENU CONTROL GLOBAL',            'Global Controls',
                                        'ОБЩЕЕ УПРАВЛЕНИЕ'),
     ('MENU CONTROL SCREENSHOT',        'Screenshot:',

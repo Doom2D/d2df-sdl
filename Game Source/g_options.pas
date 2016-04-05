@@ -95,11 +95,13 @@ var
 implementation
 
 uses
-  e_log, g_window, g_sound, g_gfx, g_player, Math,
+  e_log, e_input, g_window, g_sound, g_gfx, g_player, Math,
   g_map, g_net, g_netmaster, SysUtils, CONFIG, g_game, g_main, e_textures,
   g_items, GL, GLExt;
 
 procedure g_Options_SetDefault();
+var
+  i: Integer;
 begin
   g_Sound_SetupAllVolumes(75, 65);
   gMaxSimSounds := 8;
@@ -119,6 +121,9 @@ begin
   gDrawBackGround := True;
   gShowMessages := True;
   gRevertPlayers := False;
+  
+  for i := 0 to e_MaxJoys-1 do
+    e_JoystickDeadzones[i] := 8192;
 
   with gGameControls.GameControls do
   begin
@@ -182,6 +187,7 @@ procedure g_Options_Read(FileName: String);
 var
   config: TConfig;
   str: String;
+  i: Integer;
 begin
   gAskLanguage := True;
   e_WriteLog('Reading config', MSG_NOTIFY);
@@ -293,6 +299,9 @@ begin
     if (Team < TEAM_RED) or (Team > TEAM_BLUE) then
       Team := TEAM_RED;
   end;
+  
+  for i := 0 to e_MaxJoys-1 do
+    e_JoystickDeadzones[i] := config.ReadInt('Joysticks', 'Deadzone' + IntToStr(i), 8192);
 
   g_GFX_SetMax(Min(config.ReadInt('Game', 'MaxParticles', 1000), 50000));
   g_Shells_SetMax(Min(config.ReadInt('Game', 'MaxShells', 300), 600));
@@ -417,6 +426,7 @@ end;
 procedure g_Options_Write(FileName: String);
 var
   config: TConfig;
+  i: Integer;
 begin
   e_WriteLog('Writing config', MSG_NOTIFY);
 
@@ -488,6 +498,9 @@ begin
     WriteInt('Player2', 'blue', Color.B);
     WriteInt('Player2', 'team', Team);
   end;
+  
+  for i := 0 to e_MaxJoys-1 do
+    config.WriteInt('Joysticks', 'Deadzone' + IntToStr(i), e_JoystickDeadzones[i]);
 
   with config do
     case gGibsCount of

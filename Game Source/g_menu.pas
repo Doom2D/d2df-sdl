@@ -31,7 +31,7 @@ uses
   e_log, SysUtils, CONFIG, g_playermodel, DateUtils,
   MAPSTRUCT, WADEDITOR, Math, WADSTRUCT, g_saveload,
   e_textures, GL, GLExt, g_language,
-  g_net, g_netmsg, g_netmaster, g_items;
+  g_net, g_netmsg, g_netmaster, g_items, e_input;
 
 procedure ProcChangeColor(Sender: TGUIControl); forward;
 procedure ProcSelectModel(Sender: TGUIControl); forward;
@@ -39,6 +39,7 @@ procedure ProcSelectModel(Sender: TGUIControl); forward;
 procedure ProcApplyOptions();
 var
   menu: TGUIMenu;
+  i: Integer;
 begin
   menu := TGUIMenu(g_GUI_GetWindow('OptionsVideoMenu').GetControl('mOptionsVideoMenu'));
 
@@ -125,6 +126,14 @@ begin
     KeyPrevWeapon := TGUIKeyRead(GetControl(_lc[I_MENU_CONTROL_PREV_WEAPON])).Key;
     KeyOpen := TGUIKeyRead(GetControl(_lc[I_MENU_CONTROL_USE])).Key;
   end;
+  
+  menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsJoystickMenu').GetControl('mOptionsControlsJoystickMenu'));
+
+  with menu do
+  begin
+    for i := 0 to e_MaxJoys-1 do
+      e_JoystickDeadzones[i] := TGUIScroll(menu.GetControl('scDeadzone' + IntToStr(i))).Value*(32767 div 20);
+  end;
 
   menu := TGUIMenu(g_GUI_GetWindow('OptionsPlayersP1Menu').GetControl('mOptionsPlayersP1Menu'));
 
@@ -187,6 +196,7 @@ end;
 procedure ReadOptions();
 var
   menu: TGUIMenu;
+  i: Integer;
 begin
   menu := TGUIMenu(g_GUI_GetWindow('OptionsVideoMenu').GetControl('mOptionsVideoMenu'));
 
@@ -250,6 +260,13 @@ begin
     TGUIKeyRead(GetControl(_lc[I_MENU_CONTROL_NEXT_WEAPON])).Key := KeyNextWeapon;
     TGUIKeyRead(GetControl(_lc[I_MENU_CONTROL_PREV_WEAPON])).Key := KeyPrevWeapon;
     TGUIKeyRead(GetControl(_lc[I_MENU_CONTROL_USE])).Key := KeyOpen;
+  end;
+  
+  menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsJoystickMenu').GetControl('mOptionsControlsJoystickMenu'));
+  with menu do
+  begin
+    for i := 0 to e_MaxJoys-1 do
+      TGUIScroll(menu.GetControl('scDeadzone' + IntToStr(i))).Value := e_JoystickDeadzones[i] div (32767 div 20);
   end;
 
   menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsMenu').GetControl('mOptionsControlsMenu'));
@@ -1723,7 +1740,7 @@ procedure CreateAllMenus();
 var
   Menu: TGUIWindow;
   //SR: TSearchRec;
-  a, cx, _y{, lsi}: Integer;
+  a, cx, _y, i: Integer;
   //list: SArray;
 begin
   Menu := TGUIWindow.Create('MainMenu');
@@ -2504,6 +2521,8 @@ begin
     AddSpace();
     AddButton(nil, _lc[I_MENU_PLAYER_1], 'OptionsControlsP1Menu');
     AddButton(nil, _lc[I_MENU_PLAYER_2], 'OptionsControlsP2Menu');
+    AddSpace();
+    AddButton(nil, _lc[I_MENU_CONTROL_JOYSTICKS], 'OptionsControlsJoystickMenu');
   end;
   Menu.DefControl := 'mOptionsControlsMenu';
   g_GUI_AddWindow(Menu);
@@ -2541,6 +2560,20 @@ begin
   end;
   Menu.DefControl := 'mOptionsControlsP2Menu';
   g_GUI_AddWindow(Menu);
+  
+  Menu := TGUIWindow.Create('OptionsControlsJoystickMenu');
+  with TGUIMenu(Menu.AddChild(TGUIMenu.Create(gMenuFont, gMenuSmallFont, _lc[I_MENU_CONTROL_JOYSTICKS]))) do
+  begin
+    Name := 'mOptionsControlsJoystickMenu';
+    for i := 0 to e_MaxJoys-1 do
+      with AddScroll(Format(_lc[I_MENU_CONTROL_DEADZONE], [i + 1])) do
+      begin
+        Name := 'scDeadzone' + IntToStr(i);
+        Max := 20;
+      end;
+  end;
+  Menu.DefControl := 'mOptionsControlsJoystickMenu';
+  g_GUI_AddWindow(Menu);
 
   Menu := TGUIWindow.Create('OptionsPlayersMenu');
   with TGUIMenu(Menu.AddChild(TGUIMenu.Create(gMenuFont, gMenuSmallFont, _lc[I_MENU_PLAYER_OPTIONS]))) do
@@ -2553,7 +2586,7 @@ begin
   g_GUI_AddWindow(Menu);
 
   CreatePlayerOptionsMenu('P1');
-  CreatePlayerOptionsMenu('P2'); 
+  CreatePlayerOptionsMenu('P2');
 
   Menu := TGUIWindow.Create('OptionsPlayersMIMenu');
   with TGUIMenu(Menu.AddChild(TGUIMenu.Create(gMenuFont, gMenuSmallFont, _lc[I_MENU_MODEL_INFO]))) do
