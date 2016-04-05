@@ -135,12 +135,12 @@ begin
   ImageSize := Width * Height * (BPP div 8);
 
   GetMem( Image, ImageSize );
-  CopyMemory( Image, Pointer( Integer(pData) + SizeOf(TGAHeader) ), ImageSize );
+  CopyMemory( Image, Pointer( Cardinal(pData) + SizeOf(TGAHeader) ), ImageSize );
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Integer(Image) + i*(BPP div 8) );
-    Back  := Pointer( Integer(Image) + i*(BPP div 8) + 2 );
+    Front := Pointer( Cardinal(Image) + i*(BPP div 8) );
+    Back  := Pointer( Cardinal(Image) + i*(BPP div 8) + 2 );
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -212,14 +212,14 @@ begin
 
   ImageSize := Width * Height * (BPP div 8);
   GetMem( Image2, ImageSize );
-  CopyMemory( Image2, Pointer( Integer(pData) + SizeOf(TGAHeader) ), ImageSize );
+  CopyMemory( Image2, Pointer( Cardinal(pData) + SizeOf(TGAHeader) ), ImageSize );
 
   a := BPP div 8;
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Integer(Image2) + i * a );
-    Back  := Pointer( Integer(Image2) + i * a + 2 );
+    Front := Pointer( Cardinal(Image2) + i * a );
+    Back  := Pointer( Cardinal(Image2) + i * a + 2 );
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -230,12 +230,12 @@ begin
   ImageSize := fHeight * fWidth * (BPP div 8);
   GetMem( Image, ImageSize );
 
-  Base := Integer( Image2 ) + fY * Width * (BPP div 8) + fX * (BPP div 8);
+  Base := Cardinal( Image2 ) + fY * Width * (BPP div 8) + fX * (BPP div 8);
   a := fWidth * (BPP div 8);
   b := Width * (BPP div 8);
 
   for i := 0 to fHeight-1 do
-    CopyMemory( Pointer( Integer(image) + a*i ), Pointer( Base + b*i ), a );
+    CopyMemory( Pointer( Cardinal(image) + a*i ), Pointer( Base + b*i ), a );
 
   if ( BPP = 24 ) then
     TFmt := GL_RGB
@@ -323,8 +323,8 @@ begin
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Integer(Image) + i * (BPP div 8) );
-    Back  := Pointer( Integer(Image) + i * (BPP div 8) + 2 );
+    Front := Pointer( Cardinal(Image) + i * (BPP div 8) );
+    Back  := Pointer( Cardinal(Image) + i * (BPP div 8) + 2 );
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -414,8 +414,8 @@ begin
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Integer(Image2) + i * (BPP div 8) );
-    Back  := Pointer( Integer(Image2) + i * (BPP div 8) + 2 );
+    Front := Pointer( Cardinal(Image2) + i * (BPP div 8) );
+    Back  := Pointer( Cardinal(Image2) + i * (BPP div 8) + 2 );
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -426,11 +426,11 @@ begin
   ImageSize := fHeight * fWidth * (BPP div 8);
   GetMem( Image, ImageSize );
 
-  Base := Integer(Image2) + fY * Width * (BPP div 8) + fX * (BPP div 8);
+  Base := Cardinal(Image2) + fY * Width * (BPP div 8) + fX * (BPP div 8);
 
   for i := 0 to fHeight-1 do
   begin
-    CopyMemory( Pointer( Integer(image) + fWidth * (BPP div 8) * i ),
+    CopyMemory( Pointer( Cardinal(image) + fWidth * (BPP div 8) * i ),
                 Pointer( Base + Width * (BPP div 8) * i), fWidth * (BPP div 8) );
   end;                                                
 

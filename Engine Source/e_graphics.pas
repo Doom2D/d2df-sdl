@@ -353,7 +353,7 @@ begin
 
   for x := 1 to w-4 do
   begin
-   a := Byte(Pointer(Integer(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 
@@ -371,7 +371,7 @@ begin
 
   for x := 1 to w-4 do
   begin
-   a := Byte(Pointer(Integer(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 
@@ -389,7 +389,7 @@ begin
 
   for y := 1 to h-4 do
   begin
-   a := Byte(Pointer(Integer(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 
@@ -407,7 +407,7 @@ begin
 
   for y := 1 to h-4 do
   begin
-   a := Byte(Pointer(Integer(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 
