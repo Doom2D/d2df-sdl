@@ -2858,7 +2858,7 @@ begin
       if SR.Attr <> faDirectory then
         Continue;
       if (SR.Name = '.') or
-         ((SR.Name = '..') and (path = FBasePath)) then
+         ((SR.Name = '..') and (path = ExpandFileName(FBasePath))) then
         Continue;
 
       AddItem(#1 + SR.Name);
@@ -2894,7 +2894,8 @@ begin
 
   if (FIndex = -1) or (FItems = nil) or
      (FIndex > High(FItems)) or
-     (FItems[FIndex][1] = '/') then
+     (FItems[FIndex][1] = '/') or
+     (FItems[FIndex][1] = '\') then
     Exit;
 
   Result := FPath + FItems[FIndex];
@@ -2906,7 +2907,8 @@ var
 begin
   if (FIndex = -1) or (FItems = nil) or
      (FIndex > High(FItems)) or
-     (FItems[FIndex][1] = '/') then
+     (FItems[FIndex][1] = '/') or 
+     (FItems[FIndex][1] = '\') then
     fn := ''
   else
     fn := FItems[FIndex];
