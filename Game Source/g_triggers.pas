@@ -2063,6 +2063,7 @@ var
 begin
   if gTriggers = nil then
     Exit;
+  SetLength(Affected, 0);
 
   for a := 0 to High(gTriggers) do
     with gTriggers[a] do

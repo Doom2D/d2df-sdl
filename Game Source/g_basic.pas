@@ -685,6 +685,9 @@ var
   b: array of string;
   str: string;
 begin
+  SetLength(Result, 0);
+  SetLength(b, 0);
+
   Text := Trim(Text);
 
 // Удаляем множественные пробелы:

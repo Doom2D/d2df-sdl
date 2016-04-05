@@ -728,7 +728,7 @@ var
   textures: TTexturesRec1Array;
   mapHeader: TMapHeaderRec_1;
   i: integer;
-  resFile: String;
+  resFile: String = '';
 begin
   if gExternalResources = nil then
     gExternalResources := TStringList.Create;
@@ -1795,6 +1795,7 @@ var
   PointsArray: Array of TRespawnPoint;
 begin
   Result := False;
+  SetLength(PointsArray, 0);
 
   if RespawnPoints = nil then
     Exit;

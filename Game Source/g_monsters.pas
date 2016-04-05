@@ -261,7 +261,7 @@ const
      RunVel: 14; MinPain: 10; Pain: 20; Jump: 6),
 
     (Name:'BARREL'; Rect:(X:20; Y:13; Width:24; Height:36); Health:20;
-     MinPain: 0; Pain: 0),
+     RunVel: 0; MinPain: 0; Pain: 0; Jump: 0),
 
     (Name:'ROBO'; Rect:(X:30; Y:26; Width:68; Height:76); Health:20;
      RunVel: 3; MinPain: 20; Pain: 40; Jump: 6),
@@ -3599,6 +3599,8 @@ var
   PlayerNear, MonsterNear: Integer;
 begin
   Result := False;
+  SetLength(MonstersSee, 0);
+  SetLength(PlayersSee, 0);
 
   FTargetUID := 0;
   l := 32000;

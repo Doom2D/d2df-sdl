@@ -765,6 +765,7 @@ var
   a: Integer;
 begin
   Result := False;
+  SetLength(TempArray, 0);
 
   if SoundType = MODELSOUND_PAIN then
   begin
