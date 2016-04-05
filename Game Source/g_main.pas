@@ -484,7 +484,7 @@ begin
             begin
               for a := 0 to 14 do
                 charbuff[a] := charbuff[a+1];
-              charbuff[15] := Chr(K);
+              charbuff[15] := UpCase(Chr(K));
               Cheat();
             end;
           end;
