@@ -328,7 +328,7 @@ end;
 
 function e_GetTextureSize2(ID: DWORD): TRectWH;
 var
-  data: Pointer;
+  data: PChar;
   x, y: Integer;
   w, h: Word;
   a: Boolean;
@@ -353,7 +353,7 @@ begin
 
   for x := 1 to w-4 do
   begin
-   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte((data+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 
@@ -371,7 +371,7 @@ begin
 
   for x := 1 to w-4 do
   begin
-   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte((data+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 
@@ -389,7 +389,7 @@ begin
 
   for y := 1 to h-4 do
   begin
-   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte((data+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 
@@ -407,7 +407,7 @@ begin
 
   for y := 1 to h-4 do
   begin
-   a := Byte(Pointer(Cardinal(data)+y*w*4+x*4+3)^) <> 0;
+   a := Byte((data+y*w*4+x*4+3)^) <> 0;
    if a then Break;
   end;
 

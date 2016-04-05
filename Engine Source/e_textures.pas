@@ -135,12 +135,12 @@ begin
   ImageSize := Width * Height * (BPP div 8);
 
   GetMem( Image, ImageSize );
-  CopyMemory( Image, Pointer( Cardinal(pData) + SizeOf(TGAHeader) ), ImageSize );
+  CopyMemory( Image, PByte(pData) + SizeOf(TGAHeader), ImageSize );
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Cardinal(Image) + i*(BPP div 8) );
-    Back  := Pointer( Cardinal(Image) + i*(BPP div 8) + 2 );
+    Front := PByte(Image) + i*(BPP div 8);
+    Back  := PByte(Image) + i*(BPP div 8) + 2;
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -175,7 +175,7 @@ var
   Back:          ^Byte;
   Temp:          Byte;
   BPP:           Byte;
-  Base:          Integer;
+  Base:          PByte;
   TFmt:          Word;
 
 begin
@@ -212,14 +212,14 @@ begin
 
   ImageSize := Width * Height * (BPP div 8);
   GetMem( Image2, ImageSize );
-  CopyMemory( Image2, Pointer( Cardinal(pData) + SizeOf(TGAHeader) ), ImageSize );
+  CopyMemory( Image2, PByte(pData) + SizeOf(TGAHeader), ImageSize );
 
   a := BPP div 8;
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Cardinal(Image2) + i * a );
-    Back  := Pointer( Cardinal(Image2) + i * a + 2 );
+    Front := PByte(Image2) + i * a;
+    Back  := PByte(Image2) + i * a + 2;
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -230,12 +230,12 @@ begin
   ImageSize := fHeight * fWidth * (BPP div 8);
   GetMem( Image, ImageSize );
 
-  Base := Cardinal( Image2 ) + fY * Width * (BPP div 8) + fX * (BPP div 8);
+  Base := PByte( Image2 ) + fY * Width * (BPP div 8) + fX * (BPP div 8);
   a := fWidth * (BPP div 8);
   b := Width * (BPP div 8);
 
   for i := 0 to fHeight-1 do
-    CopyMemory( Pointer( Cardinal(image) + a*i ), Pointer( Base + b*i ), a );
+    CopyMemory( PByte(image) + a*i, Base + b*i, a );
 
   if ( BPP = 24 ) then
     TFmt := GL_RGB
@@ -323,8 +323,8 @@ begin
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Cardinal(Image) + i * (BPP div 8) );
-    Back  := Pointer( Cardinal(Image) + i * (BPP div 8) + 2 );
+    Front := PByte(Image) + i * (BPP div 8);
+    Back  := PByte(Image) + i * (BPP div 8) + 2;
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -360,7 +360,7 @@ var
   Back:          ^Byte;
   Temp:          Byte;
   BPP:           Byte;
-  Base:          Integer;
+  Base:          PByte;
   TFmt:          Word;
   
 begin
@@ -414,8 +414,8 @@ begin
 
   for i := 0 to Width * Height - 1 do
   begin
-    Front := Pointer( Cardinal(Image2) + i * (BPP div 8) );
-    Back  := Pointer( Cardinal(Image2) + i * (BPP div 8) + 2 );
+    Front := PByte(Image2) + i * (BPP div 8);
+    Back  := PByte(Image2) + i * (BPP div 8) + 2;
     Temp   := Front^;
     Front^ := Back^;
     Back^  := Temp;
@@ -426,24 +426,24 @@ begin
   ImageSize := fHeight * fWidth * (BPP div 8);
   GetMem( Image, ImageSize );
 
-  Base := Cardinal(Image2) + fY * Width * (BPP div 8) + fX * (BPP div 8);
+  Base := PByte(Image2) + fY * Width * (BPP div 8) + fX * (BPP div 8);
 
   for i := 0 to fHeight-1 do
   begin
-    CopyMemory( Pointer( Cardinal(image) + fWidth * (BPP div 8) * i ),
-                Pointer( Base + Width * (BPP div 8) * i), fWidth * (BPP div 8) );
-  end;                                                
+    CopyMemory( PByte(image) + fWidth * (BPP div 8) * i,
+                Base + Width * (BPP div 8) * i, fWidth * (BPP div 8) );
+  end;
 
   if ( BPP = 24 ) then
     TFmt := GL_RGB
   else
     TFmt := GL_RGBA;
-    
+
   Texture := CreateTexture( fWidth, fHeight, TFmt, Image );
 
   FreeMem( Image );
   FreeMem( Image2 );
-  
+
   if Fmt <> nil then Fmt^ := TFmt;
 
   Result := True;

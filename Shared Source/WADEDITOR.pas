@@ -108,7 +108,7 @@ begin
         P := OutBuf;
         Inc(OutBytes, BufInc);
         ReallocMem(OutBuf, OutBytes);
-        strm.next_out := PByteF(Cardinal(OutBuf) + (Cardinal(strm.next_out) - Cardinal(P)));
+        strm.next_out := PByteF(PChar(OutBuf) + (PChar(strm.next_out) - PChar(P)));
         strm.avail_out := BufInc;
       end;
     finally
@@ -228,7 +228,7 @@ begin
 
  FDataSize := FDataSize+LongWord(ResCompressedSize);
 
- CopyMemory(Pointer(Cardinal(FResData)+FDataSize-Cardinal(ResCompressedSize)),
+ CopyMemory(Pointer(PChar(FResData)+FDataSize-PChar(ResCompressedSize)),
             ResCompressed, ResCompressedSize);
  FreeMemory(ResCompressed);
 
@@ -359,7 +359,7 @@ begin
   else ReallocMem(FResData, FDataSize+Cardinal(ResCompressedSize));
 
  FDataSize := FDataSize+LongWord(ResCompressedSize);
- CopyMemory(Pointer(Cardinal(FResData)+FDataSize-Cardinal(ResCompressedSize)),
+ CopyMemory(Pointer(PChar(FResData)+FDataSize-PChar(ResCompressedSize)),
             ResCompressed, ResCompressedSize);
  FreeMemory(ResCompressed);
 
