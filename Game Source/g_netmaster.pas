@@ -164,7 +164,7 @@ begin
   if Length(SL) = 0 then Exit;
 
   Sock := enet_socket_create(ENET_SOCKET_TYPE_DATAGRAM);
-  if Sock < 0 then Exit;
+  if Sock = ENET_SOCKET_NULL then Exit;
   enet_socket_set_option(Sock, ENET_SOCKOPT_NONBLOCK, 1);
 
   for I := Low(SL) to High(SL) do
