@@ -2855,7 +2855,7 @@ begin
   begin
     if FindFirst(path+'*', faDirectory, SR) = 0 then
     repeat
-      if SR.Attr <> faDirectory then
+      if not LongBool(SR.Attr and faDirectory) then
         Continue;
       if (SR.Name = '.') or
          ((SR.Name = '..') and (path = ExpandFileName(FBasePath))) then
