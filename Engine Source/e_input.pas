@@ -188,11 +188,6 @@ begin
       for i := 0 to Hats do
       begin
         hat := SDL_JoystickGetHat(Handle, i);
-        if LongBool(hat and SDL_HAT_CENTERED) then
-        begin
-          for d := HAT_LEFT to HAT_DOWN do HatBuf[i, d] := False;
-          continue;
-        end;
         HatBuf[i, HAT_UP] := LongBool(hat and SDL_HAT_UP);
         HatBuf[i, HAT_DOWN] := LongBool(hat and SDL_HAT_DOWN);  
         HatBuf[i, HAT_LEFT] := LongBool(hat and SDL_HAT_LEFT);  

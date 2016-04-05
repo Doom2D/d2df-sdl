@@ -127,12 +127,14 @@ begin
     KeyOpen := TGUIKeyRead(GetControl(_lc[I_MENU_CONTROL_USE])).Key;
   end;
   
-  menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsJoystickMenu').GetControl('mOptionsControlsJoystickMenu'));
-
-  with menu do
+  if e_JoysticksAvailable > 0 then
   begin
-    for i := 0 to e_MaxJoys-1 do
-      e_JoystickDeadzones[i] := TGUIScroll(menu.GetControl('scDeadzone' + IntToStr(i))).Value*(32767 div 20);
+    menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsJoystickMenu').GetControl('mOptionsControlsJoystickMenu'));
+    with menu do
+    begin
+      for i := 0 to e_JoysticksAvailable-1 do
+        e_JoystickDeadzones[i] := TGUIScroll(menu.GetControl('scDeadzone' + IntToStr(i))).Value*(32767 div 20);
+    end;
   end;
 
   menu := TGUIMenu(g_GUI_GetWindow('OptionsPlayersP1Menu').GetControl('mOptionsPlayersP1Menu'));
@@ -262,11 +264,14 @@ begin
     TGUIKeyRead(GetControl(_lc[I_MENU_CONTROL_USE])).Key := KeyOpen;
   end;
   
-  menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsJoystickMenu').GetControl('mOptionsControlsJoystickMenu'));
-  with menu do
+  if e_JoysticksAvailable > 0 then
   begin
-    for i := 0 to e_MaxJoys-1 do
-      TGUIScroll(menu.GetControl('scDeadzone' + IntToStr(i))).Value := e_JoystickDeadzones[i] div (32767 div 20);
+    menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsJoystickMenu').GetControl('mOptionsControlsJoystickMenu'));
+    with menu do
+    begin
+      for i := 0 to e_JoysticksAvailable-1 do
+        TGUIScroll(menu.GetControl('scDeadzone' + IntToStr(i))).Value := e_JoystickDeadzones[i] div (32767 div 20);
+    end;
   end;
 
   menu := TGUIMenu(g_GUI_GetWindow('OptionsControlsMenu').GetControl('mOptionsControlsMenu'));
@@ -2522,7 +2527,8 @@ begin
     AddButton(nil, _lc[I_MENU_PLAYER_1], 'OptionsControlsP1Menu');
     AddButton(nil, _lc[I_MENU_PLAYER_2], 'OptionsControlsP2Menu');
     AddSpace();
-    AddButton(nil, _lc[I_MENU_CONTROL_JOYSTICKS], 'OptionsControlsJoystickMenu');
+    if e_JoysticksAvailable <> 0 then
+      AddButton(nil, _lc[I_MENU_CONTROL_JOYSTICKS], 'OptionsControlsJoystickMenu');
   end;
   Menu.DefControl := 'mOptionsControlsMenu';
   g_GUI_AddWindow(Menu);
@@ -2565,7 +2571,7 @@ begin
   with TGUIMenu(Menu.AddChild(TGUIMenu.Create(gMenuFont, gMenuSmallFont, _lc[I_MENU_CONTROL_JOYSTICKS]))) do
   begin
     Name := 'mOptionsControlsJoystickMenu';
-    for i := 0 to e_MaxJoys-1 do
+    for i := 0 to e_JoysticksAvailable-1 do
       with AddScroll(Format(_lc[I_MENU_CONTROL_DEADZONE], [i + 1])) do
       begin
         Name := 'scDeadzone' + IntToStr(i);
