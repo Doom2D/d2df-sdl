@@ -1,6 +1,10 @@
 # D2DF-SDL
 [Doom 2D Forever](https://github.com/pss88/DF) adapted for use with the FreePascal Compiler and ported to SDL 1.2.
 
+# SDL2 Port
+This port has been abandoned in favor of the [SDL2 port](http://repo.or.cz/d2df-sdl.git), which is currently in development.
+For further information, see [the official forums](http://doom2d.org/forum).
+
 # Building
 
 ## Requirements
